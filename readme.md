@@ -38,7 +38,7 @@
     $result = $service->calculate($request->all());
     
     Получаем ответ целиком
-    $service->all()
+    $result->all()
     
     Получаем цену
     $result->standart()->cost;
