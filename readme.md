@@ -20,6 +20,7 @@
     получение всех данных на примере функции (/2.0/order/insurance/get-list):
     **************************************
     
+    Получаем ответ целиком
     $service->insurance()->all()
     
     Получение типа agent:
@@ -35,6 +36,9 @@
     
     Передаем все данные с формы в метод calculate
     $result = $service->calculate($request->all());
+    
+    Получаем ответ целиком
+    $service->all()
     
     Получаем цену
     $result->standart()->cost;
