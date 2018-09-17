@@ -4,6 +4,13 @@ namespace Webadvance\Kitapiv2\Helpers;
 
 class Validation
 {
+    /**
+     *  проверяем нет ли лишних параметров
+     *
+     * @param $params
+     * @param $necessary
+     * @param $optional
+     */
     public static function checkParams($params, $necessary, $optional)
     {
         array_filter($params, function ($key) use ($necessary, $optional) {
@@ -15,6 +22,12 @@ class Validation
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     *  проверяем все ли обязательные поля пришли
+     *
+     * @param $params
+     * @param $necessary
+     */
     public static function checkNecessary($params, $necessary)
     {
         array_filter($necessary, function ($key) use ($params) {
