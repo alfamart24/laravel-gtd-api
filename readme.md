@@ -48,7 +48,7 @@ $cyties = $service->cityTdd()->all()
 ```
 для отправки запроса передаем параметры в функцию
 ```
-$cyties = $service->cityTdd(
+$cyti = $service->cityTdd(
                 [
                     "code"         => "660002900000",
                     "region_code"  => "66",
@@ -77,15 +77,15 @@ $result = $service->calculate($request->all());
 
 Чтобы получить ответ полностью используем all()
 ```
-$result->all()
+$response = $result->all()
 ```
 Получить цену можно так
 ```
-$result->standart()->cost;
-$result->economy()->cost;
-$result->express()->cost;
-$result->standard_courier()->cost;
-$result->express_courier()->cost;
+$price = $result->standart()->cost;
+$price = $result->economy()->cost;
+$price = $result->express()->cost;
+$price = $result->standard_courier()->cost;
+$price = $result->express_courier()->cost;
 ```
 Либо сразу так
 ```
