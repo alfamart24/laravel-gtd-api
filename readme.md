@@ -1,58 +1,95 @@
     
     
-    
-    
-    Установка
-    -----------------------------------------------------------------------------
-    
-    composer require webadvance/kitapiv2:dev-master
-    
-    *****************************************************************************
-    
-    
-    Использование:
-    -----------------------------------------------------------------------------
-    
-    use Webadvance\Kitapiv2\KitService;
-    
-    создаем сервис:
-    $service = new KitService();
-    
-    *****************************************************************************
-    
-    
-    Получение всех данных на примере функции (/2.0/order/insurance/get-list):
-    -----------------------------------------------------------------------------
-    
-    Получаем ответ целиком
-    $service->insurance()->all()
-    
-    Получение типа agent:
-    $service->insurance()->agent()
-    
-    Получение типа cargo_type:
-    $service->insurance()->cargo_type()
-    
-    *****************************************************************************
-    
-    
-    Получение цены перевозки:
-    -----------------------------------------------------------------------------
-    
-    Передаем все данные с формы в метод calculate
-    $result = $service->calculate($request->all());
-    
-    Получаем ответ целиком
-    $result->all()
-    
-    Получаем цену
-    $result->standart()->cost;
-    $result->economy()->cost;
-    $result->express()->cost;
-    $result->standard_courier()->cost;
-    $result->express_courier()->cost;
-    
-    Можно так:
-    $price = $service->calculate($request->all())->standart()->cost;
-    
-    *****************************************************************************
+## Laravel TK kit api
+
+Api для работы с ТК КИТ
+
+
+
+## Installation
+
+
+
+
+## Usage
+
+Подключаем сервис в контроллере:
+
+```
+use Webadvance\Kitapiv2\KitService;
+
+$service = new KitService();
+```
+
+
+
+Пример получения списка агентов (/2.0/order/insurance/get-list)
+
+чтобы получить весь ответ от сервера используем all()
+
+```
+$response = $service->insurance()->all()
+```
+получение только типа agent
+```
+$agents = $service->insurance()->agent()
+```
+получение типа cargo_type
+```
+$cargoType = $service->insurance()->cargo_type()
+```
+
+
+Пример получения городов (/2.0/tdd/city/get-list)
+
+чтобы получить весь список городов используем all()
+```
+$cyties = $service->cityTdd()->all()
+```
+для отправки запроса передаем параметры в функцию
+```
+$cyties = $service->cityTdd(
+                [
+                    "code"         => "660002900000",
+                    "region_code"  => "66",
+                    "country_code" => "RU"
+                ])
+```
+
+
+
+
+Для расчета стоимости перевозки достаточно в calculate передать все данные с формы.
+```
+$result = $service->calculate($request->all());
+```
+
+С формы должны прийти все обязательные поля:
+
+* 'city_pickup_code'      => 'Код города откуда',
+* 'city_delivery_code'    => 'Код города куда',
+* 'declared_price'        => 'Объявленная стоимость груза (руб)',
+* 'height'                => 'Высота груза (см) позиции',
+* 'width'                 => 'Ширина груза (см) позиции',
+* 'length'                => 'Длина груза (см) позиции',
+* 'count_place'           => 'Количество мест в позиции',
+* 'weight'                => 'Масса КГ позиции',
+
+Чтобы получить ответ полностью используем all()
+```
+$result->all()
+```
+Получить цену можно так
+```
+$result->standart()->cost;
+$result->economy()->cost;
+$result->express()->cost;
+$result->standard_courier()->cost;
+$result->express_courier()->cost;
+```
+Либо сразу так
+```
+$price = $service->calculate($request->all())->standart()->cost;
+```
+
+Позже добавлю описание всех функций
