@@ -1,8 +1,8 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Geography;
+namespace Wstanley\Kitapi\Geography;
 
-use Webadvance\Kitapiv2\FunctionClass;
+use Wstanley\Kitapi\FunctionClass;
 
 class Schedule extends FunctionClass
 {

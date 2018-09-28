@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2;
+namespace Wstanley\Kitapi;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -9,6 +9,6 @@ class Kit extends Facade
     protected static function getFacadeAccessor()
     {
         parent::getFacadeAccessor();
-        return 'kitapiv2';
+        return 'kitapi';
     }
 }

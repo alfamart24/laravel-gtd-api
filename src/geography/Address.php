@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Geography;
+namespace Wstanley\Kitapi\Geography;
 
 class Address
 {

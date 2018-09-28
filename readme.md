@@ -16,7 +16,7 @@ Api для работы с ТК КИТ
 Подключаем сервис в контроллере:
 
 ```
-use Webadvance\Kitapiv2\KitService;
+use Wstanley\Kitapi\KitService;
 
 $service = new KitService();
 ```

@@ -1,21 +1,21 @@
 <?php
 
-namespace Webadvance\Kitapiv2;
+namespace Wstanley\Kitapi;
 
 use GuzzleHttp\Client;
-use Webadvance\Kitapiv2\Geography\Email;
-use Webadvance\Kitapiv2\Geography\Phone;
-use Webadvance\Kitapiv2\Geography\Schedule;
-use Webadvance\Kitapiv2\Geography\ScheduleGroup;
-use Webadvance\Kitapiv2\helpers\StringHelp;
-use Webadvance\Kitapiv2\Order\Calculate;
-use Webadvance\Kitapiv2\Order\Currency;
-use Webadvance\Kitapiv2\Order\Insurance;
-use Webadvance\Kitapiv2\Order\Service;
-use Webadvance\Kitapiv2\Order\Status;
-use Webadvance\Kitapiv2\Tdd\City;
-use Webadvance\Kitapiv2\Tdd\Country;
-use Webadvance\Kitapiv2\Tdd\Region;
+use Wstanley\Kitapi\Geography\Email;
+use Wstanley\Kitapi\Geography\Phone;
+use Wstanley\Kitapi\Geography\Schedule;
+use Wstanley\Kitapi\Geography\ScheduleGroup;
+use Wstanley\Kitapi\helpers\StringHelp;
+use Wstanley\Kitapi\Order\Calculate;
+use Wstanley\Kitapi\Order\Currency;
+use Wstanley\Kitapi\Order\Insurance;
+use Wstanley\Kitapi\Order\Service;
+use Wstanley\Kitapi\Order\Status;
+use Wstanley\Kitapi\Tdd\City;
+use Wstanley\Kitapi\Tdd\Country;
+use Wstanley\Kitapi\Tdd\Region;
 
 class KitService
 {
@@ -177,7 +177,7 @@ class KitService
      */
     public function cityGeography(array $params = array())
     {
-        return $this->post(new \Webadvance\Kitapiv2\Geography\City($params));
+        return $this->post(new \Wstanley\Kitapi\Geography\City($params));
     }
 
     /**

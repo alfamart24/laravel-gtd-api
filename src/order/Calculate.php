@@ -1,9 +1,9 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Order;
+namespace Wstanley\Kitapi\Order;
 
-use Webadvance\Kitapiv2\FunctionClass;
-use Webadvance\Kitapiv2\Helpers\ArrayHelp;
+use Wstanley\Kitapi\FunctionClass;
+use Wstanley\Kitapi\Helpers\ArrayHelp;
 
 class Calculate extends FunctionClass
 {

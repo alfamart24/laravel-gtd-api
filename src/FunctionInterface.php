@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2;
+namespace Wstanley\Kitapi;
 
 
 interface FunctionInterface

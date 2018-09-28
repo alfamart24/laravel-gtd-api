@@ -1,5 +1,5 @@
 {
-    "name": "webadvance/kitapiv2",
+    "name": "wstanley/kitapi",
     "description": "api KIT",
     "license": "MIT",
     "authors": [
@@ -13,16 +13,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Webadvance\\Kitapiv2\\": "src/"
+            "Wstanley\\Kitapi\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Webadvance\\Kitapiv2\\KitServiceProvider"
+                "Wstanley\\Kitapi\\KitServiceProvider"
             ],
             "aliases": {
-                "Kitapiv2": "Webadvance\\Kitapiv2\\Kit"
+                "Kitapi": "Wstanley\\Kitapi\\Kit"
             }
         }
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Order;
+namespace Wstanley\Kitapi\Order;
 
-use Webadvance\Kitapiv2\FunctionClass;
+use Wstanley\Kitapi\FunctionClass;
 
 class Currency extends FunctionClass
 {

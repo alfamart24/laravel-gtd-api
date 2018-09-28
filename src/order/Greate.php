@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Order;
+namespace Wstanley\Kitapi\Order;
 
 
 class Greate

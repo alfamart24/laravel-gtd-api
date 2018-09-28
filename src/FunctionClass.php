@@ -1,8 +1,8 @@
 <?php
 
-namespace Webadvance\Kitapiv2;
+namespace Wstanley\Kitapi;
 
-use Webadvance\Kitapiv2\Helpers\Validation;
+use Wstanley\Kitapi\Helpers\Validation;
 
 abstract class FunctionClass implements FunctionInterface
 {

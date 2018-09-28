@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2;
+namespace Wstanley\Kitapi;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,7 @@ class KitServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('kitapiv2', function ($app){
+        $this->app->singleton('kitapi', function ($app){
 
             return new KitService();
         });

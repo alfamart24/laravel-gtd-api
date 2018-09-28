@@ -1,6 +1,6 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Helpers;
+namespace Wstanley\Kitapi\Helpers;
 
 class ArrayHelp
 {

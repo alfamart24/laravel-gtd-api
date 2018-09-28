@@ -1,8 +1,8 @@
 <?php
 
-namespace Webadvance\Kitapiv2\Tdd;
+namespace Wstanley\Kitapi\Tdd;
 
-use Webadvance\Kitapiv2\FunctionClass;
+use Wstanley\Kitapi\FunctionClass;
 
 class City extends FunctionClass
 {
