@@ -15,9 +15,17 @@ class Calculate extends FunctionClass
         'city_pickup_code'      => 'Код города откуда',
         'city_delivery_code'    => 'Код города куда',
         'declared_price'        => 'Объявленная стоимость груза (руб)',
+
+        'count_place'           => 'Количество мест в позиции',
+        'weight'                => 'Масса КГ позиции',
     ];
 
     protected $optional = [
+
+        'height'                => 'Высота груза (см) позиции',
+        'width'                 => 'Ширина груза (см) позиции',
+        'length'                => 'Длина груза (см) позиции',
+        'volume'                => 'Объем М³ позиции',
 
         'have_doc'              => 'Есть документы подтверждающие стоимость груза',
         'insurance'             => 'Услуга страхования груза',
@@ -52,26 +60,26 @@ class Calculate extends FunctionClass
     //  обязательные поля по условию
     private $dependent = [
 
-        'declared_price' => [
-
-            1 => [
-                'depend' => 50000,
-                'field'  => 'have_doc'
-            ],
-
-            2 => [
-                'depend' => 10000,
-                'field'  => 'insurance'
-            ]
+        1 => [
+            'field' => 'declared_price',
+            'depend' => 50000,
+            'sing' => '>=',
+            'fieldDepend' => 'have_doc'
         ],
 
-        'insurance' => [
-
-            1 => [
-                'depend' => true,
-                'field'  => 'insurance_agent_code'
-            ]
+        2 => [
+            'field' => 'declared_price',
+            'depend' => 10000,
+            'sing' => '>=',
+            'fieldDepend' => 'insurance'
         ],
+
+        3 => [
+            'field' => 'insurance',
+            'depend' => true,
+            'sing' => '=',
+            'fieldDepend' => 'insurance_agent_code'
+        ]
     ];
 
     /**

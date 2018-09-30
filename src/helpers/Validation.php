@@ -41,6 +41,32 @@ class Validation
 
     public static function checkDependent($params, $dependent)
     {
+        array_filter($dependent, function ($rule) use ($params) {
+//            dd($rule, $params);
+            switch ($rule['sing']) {
 
+                case '>=' :
+
+                    if ($params[$rule['field']] >= $rule['depend']) {
+
+                        self::checkNecessary($params, [$rule['field'] => 'теперь обязательный параметр']);
+                    }
+                    break;
+
+                case '=' :
+
+                    if ($params[$rule['field']] = $rule['depend']) {
+
+                        self::checkNecessary($params, [$rule['field'] => 'теперь обязательный параметр']);
+                    }
+                    break;
+
+                default :
+                    throw new \Exception('не переданн знак зависимости $sing' . $rule);
+                    break;
+            }
+        });
+
+        dd(333);
     }
 }
