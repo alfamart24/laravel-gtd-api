@@ -38,4 +38,9 @@ class Validation
             }
         }, ARRAY_FILTER_USE_KEY);
     }
+
+    public static function checkDependent($params, $dependent)
+    {
+
+    }
 }

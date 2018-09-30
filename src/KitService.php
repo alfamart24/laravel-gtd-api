@@ -23,12 +23,12 @@ class KitService
 
         $this->client  = new Client(
             [
-                'base_uri' => $this->base_uri,
-                'headers'  => [
-                    'Accept'        => 'application/json',
-                    'Authorization' => 'Bearer ' . getenv('TOKEN_KIT'),
-                ],
-            ]);
+            'base_uri' => $this->base_uri,
+            'headers'  => [
+                'Accept'        => 'application/json',
+                'Authorization' => 'Bearer ' . getenv('TOKEN_KIT'),
+            ],
+        ]);
     }
 
     /**

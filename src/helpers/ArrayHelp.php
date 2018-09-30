@@ -11,9 +11,8 @@ class ArrayHelp
      * @param $params
      * @return mixed
      */
-    public static function getPlaces($params)
+    public static function getPlacesSize($params)
     {
-
         for ($i=0;$i<count($params['count_place']);$i++) {
 
             $params['places'][$i]['count_place'] = $params['count_place'][$i];
@@ -26,6 +25,11 @@ class ArrayHelp
         unset($params['count_place'], $params['weight'],
             $params['height'], $params['width'], $params['length']);
 
+        return $params;
+    }
+
+    public static function getPlacesVolume($params)
+    {
         return $params;
     }
 

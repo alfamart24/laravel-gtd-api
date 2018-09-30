@@ -4,22 +4,17 @@ namespace Wstanley\Kitapi\Order;
 
 use Wstanley\Kitapi\FunctionClass;
 use Wstanley\Kitapi\Helpers\ArrayHelp;
+use Wstanley\Kitapi\Helpers\Validation;
 
 class Calculate extends FunctionClass
 {
+    protected $uri = 'order/calculate';
+
     protected $necessary = [
 
         'city_pickup_code'      => 'Код города откуда',
         'city_delivery_code'    => 'Код города куда',
         'declared_price'        => 'Объявленная стоимость груза (руб)',
-        'height'                => 'Высота груза (см) позиции',
-        'width'                => 'Ширина груза (см) позиции',
-        'length'                => 'Длина груза (см) позиции',
-        'count_place'           => 'Количество мест в позиции',
-        'weight'                => 'Масса КГ позиции',
-
-        //  пока убрал
-//        'volume'                => 'Объем М³ позиции',
     ];
 
     protected $optional = [
@@ -27,6 +22,7 @@ class Calculate extends FunctionClass
         'have_doc'              => 'Есть документы подтверждающие стоимость груза',
         'insurance'             => 'Услуга страхования груза',
         'insurance_agent_code'  => 'Код страхового агента',
+
         'service'               => 'массив кодов услуг',
         'pick_up'               => 'Забор груза по городу',
         'delivery'              => 'Доставка груза по городу',
@@ -35,35 +31,99 @@ class Calculate extends FunctionClass
         'all_places_same'       => 'Все места одинаковы по размеру'
     ];
 
-    protected $uri = 'order/calculate';
+    private $placesSize = [
 
-    public function __construct(array $params = array())
+        'count_place'           => 'Количество мест в позиции',
+        'weight'                => 'Масса КГ позиции',
+
+        'height'                => 'Высота груза (см) позиции',
+        'width'                 => 'Ширина груза (см) позиции',
+        'length'                => 'Длина груза (см) позиции',
+    ];
+
+    private $placesVolume = [
+
+        'count_place'           => 'Количество мест в позиции',
+        'weight'                => 'Масса КГ позиции',
+
+        'volume'                => 'Объем М³ позиции',
+    ];
+
+    //  обязательные поля по условию
+    private $dependent = [
+
+        'declared_price' => [
+
+            1 => [
+                'depend' => 50000,
+                'field'  => 'have_doc'
+            ],
+
+            2 => [
+                'depend' => 10000,
+                'field'  => 'insurance'
+            ]
+        ],
+
+        'insurance' => [
+
+            1 => [
+                'depend' => true,
+                'field'  => 'insurance_agent_code'
+            ]
+        ],
+    ];
+
+    /**
+     * Calculate constructor.
+     * @param array $params
+     */
+    public function __construct(array $params = array(), bool $volume = true)
     {
         parent::__construct($params);
 
-        $this->params = ArrayHelp::getPlaces($this->params);
+        Validation::checkDependent($this->params, $this->dependent);
+
+        $this->params = $volume ?
+            ArrayHelp::getPlacesVolume($this->params)
+            : ArrayHelp::getPlacesSize($this->params);
     }
 
+    /**
+     * @return mixed
+     */
     public function standart()
     {
         return ArrayHelp::calculateResult($this->response, 'standart');
     }
 
+    /**
+     * @return mixed
+     */
     public function economy()
     {
         return ArrayHelp::calculateResult($this->response, 'economy');
     }
 
+    /**
+     * @return mixed
+     */
     public function express()
     {
         return ArrayHelp::calculateResult($this->response, 'express');
     }
 
+    /**
+     * @return mixed
+     */
     public function standard_courier()
     {
         return ArrayHelp::calculateResult($this->response, 'standard_courier');
     }
 
+    /**
+     * @return mixed
+     */
     public function express_courier()
     {
         return ArrayHelp::calculateResult($this->response, 'express_courier');
