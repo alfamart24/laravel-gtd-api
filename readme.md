@@ -64,7 +64,7 @@ $cyti = $service->cityTdd(
                     "code"         => "660002900000",
                     "region_code"  => "66",
                     "country_code" => "RU"
-                ])
+                ])->all()
 ```
 
 

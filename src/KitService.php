@@ -3,25 +3,17 @@
 namespace Wstanley\Kitapi;
 
 use GuzzleHttp\Client;
-use Wstanley\Kitapi\Geography\Email;
-use Wstanley\Kitapi\Geography\Phone;
-use Wstanley\Kitapi\Geography\Schedule;
-use Wstanley\Kitapi\Geography\ScheduleGroup;
 use Wstanley\Kitapi\helpers\StringHelp;
-use Wstanley\Kitapi\Order\Calculate;
-use Wstanley\Kitapi\Order\Currency;
-use Wstanley\Kitapi\Order\Insurance;
-use Wstanley\Kitapi\Order\Service;
-use Wstanley\Kitapi\Order\Status;
-use Wstanley\Kitapi\Tdd\City;
-use Wstanley\Kitapi\Tdd\Country;
-use Wstanley\Kitapi\Tdd\Region;
 
 class KitService
 {
     private $client;
     private $base_uri = 'https://capi.tk-kit.com/2.0/';
 
+    /**
+     * KitService constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         if (empty(getenv('TOKEN_KIT'))) {
@@ -31,12 +23,12 @@ class KitService
 
         $this->client  = new Client(
             [
-            'base_uri' => $this->base_uri,
-            'headers'  => [
-                'Accept'        => 'application/json',
-                'Authorization' => 'Bearer ' . getenv('TOKEN_KIT'),
-            ],
-        ]);
+                'base_uri' => $this->base_uri,
+                'headers'  => [
+                    'Accept'        => 'application/json',
+                    'Authorization' => 'Bearer ' . getenv('TOKEN_KIT'),
+                ],
+            ]);
     }
 
     /**
@@ -44,6 +36,7 @@ class KitService
      *
      * @param FunctionInterface $function
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function post(FunctionInterface $function)
     {
@@ -65,6 +58,7 @@ class KitService
      *
      * @param FunctionInterface $function
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function json(FunctionInterface $function)
     {
@@ -89,7 +83,7 @@ class KitService
      */
     public function cityTdd(array $params = array())
     {
-        return $this->post(new City($params));
+        return $this->post(new \Wstanley\Kitapi\Tdd\City($params));
     }
 
     /**
@@ -100,7 +94,7 @@ class KitService
      */
     public function country(array $params = array())
     {
-        return $this->post(new Country($params));
+        return $this->post(new \Wstanley\Kitapi\Tdd\Country($params));
     }
 
     /**
@@ -111,7 +105,7 @@ class KitService
      */
     public function Region(array $params = array())
     {
-        return $this->post(new Region($params));
+        return $this->post(new \Wstanley\Kitapi\Tdd\Region($params));
     }
 
     /**
@@ -122,7 +116,7 @@ class KitService
      */
     public function currency(array $params = array())
     {
-        return $this->post(new Currency($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Currency($params));
     }
 
     /**
@@ -133,7 +127,7 @@ class KitService
      */
     public function insurance(array $params = array())
     {
-        return $this->post(new Insurance($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Insurance($params));
     }
 
     /**
@@ -144,7 +138,7 @@ class KitService
      */
     public function calculate(array $params = array())
     {
-        return $this->post(new Calculate($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params));
     }
 
     /**
@@ -155,7 +149,7 @@ class KitService
      */
     public function service(array $params = array())
     {
-        return $this->post(new Service($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Service($params));
     }
 
     /**
@@ -166,7 +160,7 @@ class KitService
      */
     public function status(array $params = array())
     {
-        return $this->post(new Status($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Status($params));
     }
 
     /**
@@ -188,7 +182,7 @@ class KitService
      */
     public function email(array $params = array())
     {
-        return $this->post(new Email($params));
+        return $this->post(new \Wstanley\Kitapi\Geography\Email($params));
     }
 
     /**
@@ -199,7 +193,7 @@ class KitService
      */
     public function phone(array $params = array())
     {
-        return $this->post(new Phone($params));
+        return $this->post(new \Wstanley\Kitapi\Geography\Phone($params));
     }
 
     /**
@@ -210,7 +204,7 @@ class KitService
      */
     public function schedule(array $params = array())
     {
-        return $this->post(new Schedule($params));
+        return $this->post(new \Wstanley\Kitapi\Geography\Schedule($params));
     }
 
     /**
@@ -221,6 +215,6 @@ class KitService
      */
     public function scheduleGroup(array $params = array())
     {
-        return $this->post(new ScheduleGroup($params));
+        return $this->post(new \Wstanley\Kitapi\Geography\ScheduleGroup($params));
     }
 }
