@@ -39,17 +39,23 @@ class Validation
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     *  Проверяем зависимости полей
+     *
+     * @param $params
+     * @param $dependent
+     */
     public static function checkDependent($params, $dependent)
     {
         array_filter($dependent, function ($rule) use ($params) {
-//            dd($rule, $params);
+
             switch ($rule['sing']) {
 
                 case '>=' :
 
                     if ($params[$rule['field']] >= $rule['depend']) {
 
-                        self::checkNecessary($params, [$rule['field'] => 'теперь обязательный параметр']);
+                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
                     }
                     break;
 
@@ -57,7 +63,7 @@ class Validation
 
                     if ($params[$rule['field']] = $rule['depend']) {
 
-                        self::checkNecessary($params, [$rule['field'] => 'теперь обязательный параметр']);
+                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
                     }
                     break;
 
@@ -67,6 +73,6 @@ class Validation
             }
         });
 
-        dd(333);
+        dd($params);
     }
 }

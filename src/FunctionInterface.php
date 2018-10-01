@@ -2,7 +2,6 @@
 
 namespace Wstanley\Kitapi;
 
-
 interface FunctionInterface
 {
     /**

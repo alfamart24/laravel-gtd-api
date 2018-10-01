@@ -85,6 +85,7 @@ class Calculate extends FunctionClass
     /**
      * Calculate constructor.
      * @param array $params
+     * @param bool $volume
      */
     public function __construct(array $params = array(), bool $volume = true)
     {
@@ -93,8 +94,8 @@ class Calculate extends FunctionClass
         Validation::checkDependent($this->params, $this->dependent);
 
         $this->params = $volume ?
-            ArrayHelp::getPlacesVolume($this->params)
-            : ArrayHelp::getPlacesSize($this->params);
+            ArrayHelp::getPlacesVolume($this->params, $this->placesVolume)
+            : ArrayHelp::getPlacesSize($this->params, $this->placesSize);
     }
 
     /**
