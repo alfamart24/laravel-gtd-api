@@ -93,9 +93,13 @@ class Calculate extends FunctionClass
 
         Validation::checkDependent($this->params, $this->dependent);
 
-        $this->params = $volume ?
-            ArrayHelp::getPlacesVolume($this->params, $this->placesVolume)
-            : ArrayHelp::getPlacesSize($this->params, $this->placesSize);
+        if ($volume) {
+            Validation::checkNecessary($this->params, $this->placesVolume);
+        } else {
+            Validation::checkNecessary($this->params, $this->placesSize);
+        }
+
+        $this->params = ArrayHelp::getPlaces($this->params, $volume);
     }
 
     /**

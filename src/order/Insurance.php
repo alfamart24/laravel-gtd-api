@@ -4,6 +4,7 @@ namespace Wstanley\Kitapi\Order;
 
 use Wstanley\Kitapi\FunctionClass;
 
+
 class Insurance extends FunctionClass
 {
     protected $uri = 'order/insurance/get-list';

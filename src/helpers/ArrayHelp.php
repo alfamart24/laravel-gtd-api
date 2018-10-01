@@ -11,25 +11,27 @@ class ArrayHelp
      * @param $params
      * @return mixed
      */
-    public static function getPlacesSize($params)
+    public static function getPlaces($params, bool $volume = true)
     {
         for ($i=0;$i<count($params['count_place']);$i++) {
 
             $params['places'][$i]['count_place'] = $params['count_place'][$i];
             $params['places'][$i]['weight']      = $params['weight'][$i];
-            $params['places'][$i]['height']      = $params['height'][$i];
-            $params['places'][$i]['width']       = $params['width'][$i];
-            $params['places'][$i]['length']      = $params['length'][$i];
+
+            if ($volume) {
+
+                $params['places'][$i]['volume']      = $params['volume'][$i];
+            } else {
+
+                $params['places'][$i]['height']      = $params['height'][$i];
+                $params['places'][$i]['width']       = $params['width'][$i];
+                $params['places'][$i]['length']      = $params['length'][$i];
+            }
         }
 
-        unset($params['count_place'], $params['weight'],
-            $params['height'], $params['width'], $params['length']);
+        unset($params['count_place'], $params['weight'], $params['height'],
+            $params['width'], $params['length'], $params['volume']);
 
-        return $params;
-    }
-
-    public static function getPlacesVolume($params)
-    {
         return $params;
     }
 

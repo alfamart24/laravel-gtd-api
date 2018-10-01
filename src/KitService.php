@@ -136,9 +136,9 @@ class KitService
      * @param array $params
      * @return FunctionInterface
      */
-    public function calculate(array $params = array())
+    public function calculate(array $params = array(), bool $volume = true)
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params));
+        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
     }
 
     /**

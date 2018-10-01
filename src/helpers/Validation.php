@@ -53,7 +53,7 @@ class Validation
 
                 case '>=' :
 
-                    if ($params[$rule['field']] >= $rule['depend']) {
+                    if (isset($params[$rule['field']]) && $params[$rule['field']] >= $rule['depend']) {
 
                         self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
                     }
@@ -61,7 +61,7 @@ class Validation
 
                 case '=' :
 
-                    if ($params[$rule['field']] = $rule['depend']) {
+                    if (isset($params[$rule['field']]) && $params[$rule['field']] = $rule['depend']) {
 
                         self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
                     }
@@ -72,7 +72,21 @@ class Validation
                     break;
             }
         });
+    }
 
-        dd($params);
+    public static function checkVolume($params)
+    {
+        if (!isset($params['volume'])) {
+
+            throw new \Exception('В переданном массиве не найдено Volume');
+        }
+    }
+
+    public static function checkSize($params)
+    {
+        if (!isset($params['volume'])) {
+
+            throw new \Exception('В переданном массиве не найдено Volume');
+        }
     }
 }
