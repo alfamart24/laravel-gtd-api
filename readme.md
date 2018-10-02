@@ -35,79 +35,79 @@ $service = new KitService();
 
 ## Реализованные функции:
 
-`geography/city/get-list` - Получение списка городов<br>
+#### Получение списка городов - `geography/city/get-list`<br>
 ```
 $service->cityGeography()->all()
 ```
 <br>
 
-`geography/email/get-list` - Получение списка электронных адресов<br>
+#### Получение списка электронных адресов - `geography/email/get-list`<br>
 ```
 $service->email()->all()
 ```
 <br>
 
-`geography/phone/get-list` - Получение списка телефонов<br>
+#### Получение списка телефонов - `geography/phone/get-list`<br>
 ```
 $service->phone()->all()
 ```
 <br>
 
-`geography/schedule/get-list` - Получение списка режимов работы<br>
+#### Получение списка режимов работы - `geography/schedule/get-list`<br>
 ```
 $service->schedule()->all()
 ```
 <br>
 
-`geography/schedule-group/get-list` - Получение списка видов графиков работы<br>
+#### Получение списка видов графиков работы - `geography/schedule-group/get-list`<br>
 ```
 $service->scheduleGroup()->all()
 ```
 <br>
 
-`order/calculate` - Расчет стоимости<br>
+#### Расчет стоимости - `order/calculate`<br>
 ```
 $service->calculate(...)->all()
 ```
 <br>
 
-`order/currency/get-list` - Получение списка валют<br>
+#### Получение списка валют - `order/currency/get-list`<br>
 ```
 $service->currency()->all()
 ```
 <br>
 
-`order/insurance/get-list` - Список страховых агентов<br>
+#### Список страховых агентов - `order/insurance/get-list`<br>
 ```
 $service->insurance()->all()
 ```
 <br>
 
-`order/service/get-list` - /2.0/order/service/get-list<br>
+#### Оформление заказа - `order/service/get-list`<br>
 ```
 $service->service()->all()
 ```
 <br>
 
-`order/status/get` - Статус заказа<br>
+#### Статус заказа - `order/status/get`<br>
 ```
 $service->status()->all()
 ```
 <br>
 
-`tdd/city/get-list` - Список городов<br>
+#### Список городов - `tdd/city/get-list`<br>
 ```
 $service->cityTdd()->all()
 ```
 <br>
 
-`tdd/country/get-list` - Получение списка стран<br>
+#### Получение списка стран - `tdd/country/get-list`<br>
 ```
 $service->country()->all()
 ```
 <br>
 
-`tdd/region/get-list` - Список регионов<br>
+#### Список регионов - `tdd/region/get-list`<br>
 ```
 $service->region()->all()
 ```
@@ -116,7 +116,7 @@ $service->region()->all()
 
 ## Примеры работы с функциями:
 
-#### `tdd/city/get-list` - Список городов<br>
+#### Список городов - `tdd/city/get-list`<br>
 
 Чтобы получить весь список городов используем all().<br> all() используется для получения полного ответа от сервера.
 ```
@@ -142,7 +142,7 @@ $cyti = $service->cityTdd(["code" => "660002900000"])->all()
 
 <br>
 
-#### `order/insurance/get-list` - Список страховых агентов<br>
+#### Список страховых агентов - `order/insurance/get-list`<br>
 
 Чтобы получить весь ответ от сервера используем all()
 
@@ -165,11 +165,11 @@ $cargoType = $service->insurance()->cargo_type()
 
 ## Расчет стоимости перевозки
 
-#### `order/calculate` - Расчет стоимости<br>
+#### Расчет стоимости - `order/calculate`
 
-Есть 2 варианта расчета стоимости:
+#### Есть 2 варианта расчета стоимости:
 
-#### С указанием объема багажа `volume`
+### С указанием объема багажа `volume`
 Получение полного ответа от сервера
 
 ```
@@ -232,7 +232,7 @@ $price = $service->calculate($request->all())->standart()->cost;
 
 <br>
 
-#### С указанием размеров багажа `height`, `width`, `length`
+### С указанием размеров багажа `height`, `width`, `length`
 В случае работы с размерами в функцию требуется передать флаг `false` вторым параметром, ианче расчет будет вестись как для объема. 
 
 ```
