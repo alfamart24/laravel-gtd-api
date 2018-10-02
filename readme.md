@@ -39,73 +39,61 @@ $service = new KitService();
 ```
 $service->cityGeography()->all()
 ```
-<br>
 
 #### Получение списка электронных адресов - `geography/email/get-list`<br>
 ```
 $service->email()->all()
 ```
-<br>
 
 #### Получение списка телефонов - `geography/phone/get-list`<br>
 ```
 $service->phone()->all()
 ```
-<br>
 
 #### Получение списка режимов работы - `geography/schedule/get-list`<br>
 ```
 $service->schedule()->all()
 ```
-<br>
 
 #### Получение списка видов графиков работы - `geography/schedule-group/get-list`<br>
 ```
 $service->scheduleGroup()->all()
 ```
-<br>
 
 #### Расчет стоимости - `order/calculate`<br>
 ```
 $service->calculate(...)->all()
 ```
-<br>
 
 #### Получение списка валют - `order/currency/get-list`<br>
 ```
 $service->currency()->all()
 ```
-<br>
 
 #### Список страховых агентов - `order/insurance/get-list`<br>
 ```
 $service->insurance()->all()
 ```
-<br>
 
 #### Оформление заказа - `order/service/get-list`<br>
 ```
 $service->service()->all()
 ```
-<br>
 
 #### Статус заказа - `order/status/get`<br>
 ```
 $service->status()->all()
 ```
-<br>
 
 #### Список городов - `tdd/city/get-list`<br>
 ```
 $service->cityTdd()->all()
 ```
-<br>
 
 #### Получение списка стран - `tdd/country/get-list`<br>
 ```
 $service->country()->all()
 ```
-<br>
 
 #### Список регионов - `tdd/region/get-list`<br>
 ```
