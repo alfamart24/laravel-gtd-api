@@ -17,7 +17,7 @@ class Validation
 
             if ((!array_key_exists($key, $necessary) && !array_key_exists($key, $optional))) {
 
-                throw new \Exception('передан не существующий параметр');
+                throw new \Exception('передан не существующий параметр ' . $key);
             }
         }, ARRAY_FILTER_USE_KEY);
     }

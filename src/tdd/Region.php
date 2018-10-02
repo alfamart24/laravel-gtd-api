@@ -9,7 +9,7 @@ class Region extends FunctionClass
     public $optional = [
 
         'code'            => 'Код населенного пункта',
-        'country_сode'    => 'Код страны',
+        'country_code'    => 'Код страны',
     ];
 
     protected $uri = 'tdd/region/get-list';
