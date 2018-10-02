@@ -82,7 +82,7 @@ $service->service()->all()
 
 #### Статус заказа - `order/status/get`<br>
 ```
-$service->status()->all()
+$service->status(...)->all()
 ```
 
 #### Список городов - `tdd/city/get-list`<br>
