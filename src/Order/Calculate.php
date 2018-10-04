@@ -2,6 +2,9 @@
 
 namespace Wstanley\Kitapi\Order;
 
+use Wstanley\Kitapi\Command\CommandBus;
+use Wstanley\Kitapi\Command\Places\Size;
+use Wstanley\Kitapi\Command\Places\Volume;
 use Wstanley\Kitapi\FunctionClass;
 use Wstanley\Kitapi\Helpers\ArrayHelp;
 use Wstanley\Kitapi\Helpers\Validation;
@@ -37,24 +40,6 @@ class Calculate extends FunctionClass
         'cargo_type_code'       => 'Код характера груза',
         'currency_code'         => 'Валюта результата расчета',
         'all_places_same'       => 'Все места одинаковы по размеру'
-    ];
-
-    private $placesSize = [
-
-        'count_place'           => 'Количество мест в позиции',
-        'weight'                => 'Масса КГ позиции',
-
-        'height'                => 'Высота груза (см) позиции',
-        'width'                 => 'Ширина груза (см) позиции',
-        'length'                => 'Длина груза (см) позиции',
-    ];
-
-    private $placesVolume = [
-
-        'count_place'           => 'Количество мест в позиции',
-        'weight'                => 'Масса КГ позиции',
-
-        'volume'                => 'Объем М³ позиции',
     ];
 
     //  обязательные поля по условию
@@ -94,9 +79,9 @@ class Calculate extends FunctionClass
         Validation::checkDependent($this->params, $this->dependent);
 
         if ($volume) {
-            Validation::checkNecessary($this->params, $this->placesVolume);
+            Validation::checkNecessary($this->params, CommandBus::handle(new Volume()));
         } else {
-            Validation::checkNecessary($this->params, $this->placesSize);
+            Validation::checkNecessary($this->params, CommandBus::handle(new Size()));
         }
 
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
