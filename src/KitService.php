@@ -76,6 +76,29 @@ class KitService
     }
 
     /**
+     *  функция /2.0/order/create
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function create(array $params = array(), bool $volume = true)
+    {
+        return $this->post(new \Wstanley\Kitapi\Order\Create($params, $volume));
+    }
+
+
+    /**
+     *  функция /2.0/order/calculate
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function calculate(array $params = array(), bool $volume = true)
+    {
+        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
+    }
+
+    /**
      *  функция /2.0/tdd/city/get-list
      *
      * @param array $params
@@ -128,17 +151,6 @@ class KitService
     public function insurance(array $params = array())
     {
         return $this->post(new \Wstanley\Kitapi\Order\Insurance($params));
-    }
-
-    /**
-     *  функция /2.0/order/calculate
-     *
-     * @param array $params
-     * @return FunctionInterface
-     */
-    public function calculate(array $params = array(), bool $volume = true)
-    {
-        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
     }
 
     /**

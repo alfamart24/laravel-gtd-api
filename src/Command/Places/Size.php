@@ -2,13 +2,16 @@
 
 namespace Wstanley\Kitapi\Command\Places;
 
-use Wstanley\Kitapi\Command\CommandInterface;
-
-class Size implements CommandInterface
+class Size
 {
-    public $count_place   = 'Количество мест в позиции';
-    public $weight        = 'Масса КГ позиции';
-    public $height        = 'Высота груза (см) позиции';
-    public $width         = 'Ширина груза (см) позиции';
-    public $length        = 'Длина груза (см) позиции';
+    public static function necessary()
+    {
+        return [
+            'count_place'   => 'Количество мест в позиции',
+            'weight'        => 'Масса КГ позиции',
+            'height'        => 'Высота груза (см) позиции',
+            'width'         => 'Ширина груза (см) позиции',
+            'length'        => 'Длина груза (см) позиции'
+        ];
+    }
 }

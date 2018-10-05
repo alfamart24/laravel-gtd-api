@@ -2,7 +2,6 @@
 
 namespace Wstanley\Kitapi\Order;
 
-use Wstanley\Kitapi\Command\CommandBus;
 use Wstanley\Kitapi\Command\Places\Size;
 use Wstanley\Kitapi\Command\Places\Volume;
 use Wstanley\Kitapi\FunctionClass;
@@ -67,11 +66,6 @@ class Calculate extends FunctionClass
         ]
     ];
 
-    /**
-     * Calculate constructor.
-     * @param array $params
-     * @param bool $volume
-     */
     public function __construct(array $params = array(), bool $volume = true)
     {
         parent::__construct($params);
@@ -79,9 +73,9 @@ class Calculate extends FunctionClass
         Validation::checkDependent($this->params, $this->dependent);
 
         if ($volume) {
-            Validation::checkNecessary($this->params, CommandBus::handle(new Volume()));
+            Validation::checkNecessary($this->params, Volume::necessary());
         } else {
-            Validation::checkNecessary($this->params, CommandBus::handle(new Size()));
+            Validation::checkNecessary($this->params, Size::necessary());
         }
 
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
