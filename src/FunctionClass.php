@@ -29,7 +29,7 @@ abstract class FunctionClass implements FunctionInterface
         unset($this->params['_token']);
 
         //  проверяем нет ли лишних параметров
-        Validation::checkParams($this->params, $this->necessary, $this->optional);
+//        Validation::checkParams($this->params, $this->necessary, $this->optional);
 
         //  проверяем все ли обязательные поля пришли
         if (!empty($this->necessary)) Validation::checkNecessary($this->params, $this->necessary);

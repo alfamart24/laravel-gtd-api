@@ -8,43 +8,60 @@ namespace Wstanley\Kitapi\Command\Debitor;
 
 class Legal
 {
-    public static function necessary($dependent)
+    public static function necessary()
     {
-        $params = [
+        return [
 
-            'name_ur'               => 'ФИО контактного лица (Юредическое лицо)',
+            'name_ur'               => 'ФИО контактного лица (Юридическое лицо)',
             'organization_name_ur'  => 'Наименование организации',
             'organization_phone_ur' => 'Телефон организации',
-            'inn_ur'                => 'ИНН (Юредическое лицо)',
+            'phone_ur'              => 'ФИО контактного лица (Юридическое лицо)',
+            'inn_ur'                => 'ИНН (Юридическое лицо)',
 
-            // 2 3
             'legal_country'         => 'Страна (ИП или Юр.лицо)',
             'legal_city'            => 'Город (ИП или Юр.лицо)',
             'legal_street'          => 'Улица (ИП или Юр.лицо)',
             'legal_house'           => 'Дом (ИП или Юр.лицо)',
-            'legal_supp'            => 'Корпус (ИП или Юр.лицо)',
-            'legal_room'            => 'Кв\Офис (ИП или Юр.лицо)',
         ];
+    }
 
-        // условие  country_code
-        switch ($dependent['country_code']) {
+    public static function optional()
+    {
+        return [
 
-            case 'RU' :
-                $params['kpp'] = 'КПП';
-                break;
+            'kpp'           => 'КПП',
+            'bin'           => 'БИН (Юридическое лицо)',
+            'unp_ur'        => 'УНП (Юридическое лицо)',
 
-            case 'BY' :
-                $params['unp_ur'] = 'УНП (Юредическое лицо)';
-                break;
+            'legal_supp'    => 'Корпус (ИП или Юр.лицо)',
+            'legal_room'    => 'Кв\Офис (ИП или Юр.лицо)',
+        ];
+    }
 
-            case 'KZ' :
-                $params['bin'] = 'БИН (Юредическое лицо)';
-                break;
+    public static function dependent()
+    {
+        return [
 
-            default :
-                break;
-        }
+            1 => [
+                'field'         => 'country_code',
+                'depend'        => 'RU',
+                'sing'          => '=',
+                'fieldDepend'   => ['kpp']
+            ],
 
-        return $params;
+            2 => [
+                'field'         => 'country_code',
+                'depend'        => 'KZ',
+                'sing'          => '=',
+                'fieldDepend'   => ['bin']
+            ],
+
+            3 => [
+                'field'         => 'country_code',
+                'depend'        => 'BY',
+                'sing'          => '=',
+                'fieldDepend'   => ['unp_ur']
+            ],
+        ];
     }
 }
