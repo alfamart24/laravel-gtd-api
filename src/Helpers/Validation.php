@@ -59,6 +59,14 @@ class Validation
                     }
                     break;
 
+                case '>' :
+
+                    if (isset($params[$rule['field']]) && $params[$rule['field']] > $rule['depend']) {
+
+                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
+                    }
+                    break;
+
                 case '=' :
 
                     if (isset($params[$rule['field']]) && $params[$rule['field']] = $rule['depend']) {

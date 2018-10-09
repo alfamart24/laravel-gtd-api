@@ -5,6 +5,8 @@ namespace Wstanley\Kitapi\Order;
 use Wstanley\Kitapi\Command\Debitor\Individual;
 use Wstanley\Kitapi\Command\Debitor\Legal;
 use Wstanley\Kitapi\Command\Debitor\Physical;
+use Wstanley\Kitapi\Command\Deliver;
+use Wstanley\Kitapi\Command\Pickup;
 use Wstanley\Kitapi\Command\Places\Volume;
 use Wstanley\Kitapi\Command\Places\Size;
 use Wstanley\Kitapi\Helpers\Validation;
@@ -29,8 +31,8 @@ class Create extends FunctionClass
         'count_place'        => 'Количество мест в позиции',
         'weight'             => 'Масса КГ позиции',
 
-        'debitor_type'           => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
-//        'debitor'           => 'Номер дебитора',
+//        'debitor_type'     => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+//        'debitor'          => 'Номер дебитора',
     ];
 
     protected $optional = [
@@ -97,39 +99,36 @@ class Create extends FunctionClass
     {
         parent::__construct($params);
 
+
+
+
+        //todo доделать работу с зависимостями
+
+
         Validation::checkDependent($this->params, $this->dependent);
 
-        switch ($this->params['debitor_type']) {
 
-            case '1' :
-                Validation::checkNecessary($this->params, Physical::necessary());
-                Validation::checkDependent($this->params, Physical::dependent());
-                break;
 
-            case '2' :
-                Validation::checkNecessary($this->params, Individual::necessary());
-                Validation::checkDependent($this->params, Individual::dependent());
-                break;
 
-            case '3' :
-                Validation::checkNecessary($this->params, Legal::necessary());
-                Validation::checkDependent($this->params, Legal::dependent());
-                break;
+        //todo проверить debitor pick_up deliver что это массив
 
-            default :
-                throw new \Exception(
-                    sprintf("параметр 'debitor_type' должен быть равен 1 - физик, 2 - ИП, 3 - Юр.лицо"));
-                break;
+
+        $this->checkDebitor($this->params['customer']);
+        $this->checkDebitor($this->params['sender']);
+        $this->checkDebitor($this->params['receiver']);
+
+        if (isset($this->params['pick_up']) && $this->params['pick_up']) {
+
+            Validation::checkNecessary($this->params['pick_up'], Pickup::necessary());
+            Validation::checkDependent($this->params['pick_up'], Pickup::dependent());
+            Validation::checkParams($this->params['pick_up'], Pickup::necessary(), Pickup::optional());
         }
 
-        if ($this->params['pick_up']) {
+        if (isset($this->params['deliver']) && $this->params['deliver']) {
 
-            //todo проверка на Pickup
-        }
-
-        if ($this->params['deliver']) {
-
-            //todo проверка на Deliver
+            Validation::checkNecessary($this->params['deliver'], Deliver::necessary());
+            Validation::checkDependent($this->params['deliver'], Deliver::dependent());
+            Validation::checkParams($this->params['deliver'], Deliver::necessary(), Deliver::optional());
         }
 
         if ($volume) {
@@ -139,5 +138,34 @@ class Create extends FunctionClass
         }
 
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
+    }
+
+    private function checkDebitor($debitor)
+    {
+        switch ($debitor['debitor_type']) {
+
+            case '1' :
+                Validation::checkNecessary($debitor, Physical::necessary());
+                Validation::checkDependent($debitor, Physical::dependent());
+                Validation::checkParams($debitor, Individual::necessary(), Individual::optional());
+                break;
+
+            case '2' :
+                Validation::checkNecessary($debitor, Individual::necessary());
+                Validation::checkDependent($debitor, Individual::dependent());
+                Validation::checkParams($debitor, Individual::necessary(), Individual::optional());
+                break;
+
+            case '3' :
+                Validation::checkNecessary($debitor, Legal::necessary());
+                Validation::checkDependent($debitor, Legal::dependent());
+                Validation::checkParams($debitor, Individual::necessary(), Individual::optional());
+                break;
+
+            default :
+                throw new \Exception(
+                    sprintf("параметр 'debitor_type' должен быть равен 1 - физик, 2 - ИП, 3 - Юр.лицо"));
+                break;
+        }
     }
 }
