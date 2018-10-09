@@ -12,6 +12,8 @@ class Individual
     {
         return [
 
+            'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+
             'name_ip'               => 'ФИО контактного лица (ИП)',
             'organization_name_ip'  => 'ФИО (ИП)',
             'organization_phone_ip' => 'Номер телефона (ИП)',
@@ -44,14 +46,14 @@ class Individual
                 'field'         => 'country_code',
                 'depend'        => 'BY',
                 'sing'          => '=',
-                'fieldDepend'   => ['unp_ip']
+                'fieldDepend'   => 'unp_ip'
             ],
 
             2 => [
                 'field'         => 'country_code',
                 'depend'        => 'KZ',
                 'sing'          => '=',
-                'fieldDepend'   => ['iin']
+                'fieldDepend'   => 'iin'
             ],
         ];
     }

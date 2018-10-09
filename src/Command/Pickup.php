@@ -35,7 +35,9 @@ class Pickup
                 'field'         => 'pickup_r',
                 'depend'        => true,
                 'sing'          => '=',
-                'fieldDepend'   => ['pickup_street', 'pickup_house']
+                'fieldDepend'   => [
+                                    'pickup_street' => 'Улица другого адреса отправителя',
+                                    'pickup_house'  => 'Дом другого адреса отправителя',]
             ],
         ];
     }

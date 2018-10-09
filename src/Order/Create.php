@@ -70,7 +70,8 @@ class Create extends FunctionClass
             'field'         => 'declared_price',
             'depend'        => 50000,
             'sing'          => '>',
-            'fieldDepend'   => ['confirmation_price', 'have_doc']
+            'fieldDepend'   => ['confirmation_price' => 'Наличие документов подтверждающих стоимость',
+                                'have_doc'  => 'Есть документы подтверждающие стоимость груза',]
         ],
 
         2 => [
@@ -99,23 +100,18 @@ class Create extends FunctionClass
     {
         parent::__construct($params);
 
-
-
-
-        //todo доделать работу с зависимостями
-
-
         Validation::checkDependent($this->params, $this->dependent);
-
 
 
 
         //todo проверить debitor pick_up deliver что это массив
 
+        Validation::isArray($this->params['sender']);
+
 
         $this->checkDebitor($this->params['customer']);
-        $this->checkDebitor($this->params['sender']);
-        $this->checkDebitor($this->params['receiver']);
+//        $this->checkDebitor($this->params['sender']);
+//        $this->checkDebitor($this->params['receiver']);
 
         if (isset($this->params['pick_up']) && $this->params['pick_up']) {
 
@@ -137,17 +133,20 @@ class Create extends FunctionClass
             Validation::checkNecessary($this->params, Size::necessary());
         }
 
+
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
+        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
     {
+
         switch ($debitor['debitor_type']) {
 
             case '1' :
                 Validation::checkNecessary($debitor, Physical::necessary());
                 Validation::checkDependent($debitor, Physical::dependent());
-                Validation::checkParams($debitor, Individual::necessary(), Individual::optional());
+                Validation::checkParams($debitor, Physical::necessary(), Physical::optional());
                 break;
 
             case '2' :
@@ -159,7 +158,7 @@ class Create extends FunctionClass
             case '3' :
                 Validation::checkNecessary($debitor, Legal::necessary());
                 Validation::checkDependent($debitor, Legal::dependent());
-                Validation::checkParams($debitor, Individual::necessary(), Individual::optional());
+                Validation::checkParams($debitor, Legal::necessary(), Legal::optional());
                 break;
 
             default :

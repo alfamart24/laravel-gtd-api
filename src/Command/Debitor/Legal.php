@@ -12,6 +12,8 @@ class Legal
     {
         return [
 
+            'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+
             'name_ur'               => 'ФИО контактного лица (Юридическое лицо)',
             'organization_name_ur'  => 'Наименование организации',
             'organization_phone_ur' => 'Телефон организации',
@@ -46,21 +48,21 @@ class Legal
                 'field'         => 'country_code',
                 'depend'        => 'RU',
                 'sing'          => '=',
-                'fieldDepend'   => ['kpp']
+                'fieldDepend'   => 'kpp'
             ],
 
             2 => [
                 'field'         => 'country_code',
                 'depend'        => 'KZ',
                 'sing'          => '=',
-                'fieldDepend'   => ['bin']
+                'fieldDepend'   => 'bin'
             ],
 
             3 => [
                 'field'         => 'country_code',
                 'depend'        => 'BY',
                 'sing'          => '=',
-                'fieldDepend'   => ['unp_ur']
+                'fieldDepend'   => 'unp_ur'
             ],
         ];
     }

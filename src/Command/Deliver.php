@@ -35,7 +35,10 @@ class Deliver
                 'field'         => 'delivery_r',
                 'depend'        => true,
                 'sing'          => '=',
-                'fieldDepend'   => ['delivery_street', 'delivery_house']
+                'fieldDepend'   => [
+                                    'delivery_street' => 'Улица другого адреса получателя',
+                                    'delivery_house'  => 'Дом другого адреса получателя',
+                                    ]
             ],
         ];
     }

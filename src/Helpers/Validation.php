@@ -55,7 +55,8 @@ class Validation
 
                     if (isset($params[$rule['field']]) && $params[$rule['field']] >= $rule['depend']) {
 
-                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
+                        self::checkNecessary($params, is_array($rule['fieldDepend'])
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
                     }
                     break;
 
@@ -63,7 +64,8 @@ class Validation
 
                     if (isset($params[$rule['field']]) && $params[$rule['field']] > $rule['depend']) {
 
-                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
+                        self::checkNecessary($params, is_array($rule['fieldDepend'])
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
                     }
                     break;
 
@@ -71,15 +73,26 @@ class Validation
 
                     if (isset($params[$rule['field']]) && $params[$rule['field']] = $rule['depend']) {
 
-                        self::checkNecessary($params, [$rule['fieldDepend'] => 'теперь обязательный параметр']);
+                        self::checkNecessary($params, is_array($rule['fieldDepend'])
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
                     }
                     break;
 
                 default :
-                    throw new \Exception('не переданн знак зависимости $sing' . $rule);
+                    throw new \Exception('не найден знак зависимости $sing ' . $rule);
                     break;
             }
         });
+    }
+
+    public static function isArray($array)
+    {
+        if (!is_array($array)) {
+
+
+            //todo дописать вывод
+            throw new \Exception('параметр ' . $array . ' должен быть массивом');
+        }
     }
 
     public static function checkVolume($params)

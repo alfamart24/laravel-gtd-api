@@ -12,6 +12,8 @@ class Physical
     {
         return [
 
+            'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+
             'country_code'          => 'Код страны',
             'real_country'          => 'Страна (Физическое лицо)',
             'real_city'             => 'Город (Физическое лицо)',
