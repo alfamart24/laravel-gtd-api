@@ -48,7 +48,7 @@ class ArrayHelp
             function ($value, $key) use (&$params)
                 { $params[$key] = $value; }, ARRAY_FILTER_USE_BOTH);
 
-        $params[$name] = true;
+        $params[$name] = 1;
 
         return $params;
     }

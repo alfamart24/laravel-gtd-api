@@ -24,12 +24,17 @@ class Create extends FunctionClass
         'type'                  => 'Вид перевозки',
         'declared_price'        => 'Объявленная стоимость груза (руб)',
 
+        //  передачу номера дебитора не запилил, предполагается что номеров у вас нет
+        //  поэтому передавать придется все данные в массиве
         'customer'              => 'Заказчик (Debitor)',
         'sender'                => 'Отправитель (Debitor)',
         'receiver'              => 'Получатель (Debitor)',
 
         'count_place'           => 'Количество мест в позиции',
         'weight'                => 'Масса КГ позиции',
+
+        //  перенес сюда он обязательный, если нет то передаем пустой массив
+        'pick_up'               => 'Забор груза (Pickup)',
     ];
 
     protected $optional = [
@@ -43,7 +48,7 @@ class Create extends FunctionClass
         'length'                => 'Длина груза (см) позиции',
         'volume'                => 'Объем М³ позиции',
 
-        'pick_up'               => 'Забор груза (Pickup)',
+//        'pick_up'               => 'Забор груза (Pickup)',
 
         'deliver'               => 'Доставка груза по городу (Deliver)',
 
@@ -147,7 +152,7 @@ class Create extends FunctionClass
 
         //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
-        dd($this->params, 'stop');
+//        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
