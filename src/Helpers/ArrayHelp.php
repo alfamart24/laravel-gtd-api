@@ -34,6 +34,18 @@ class ArrayHelp
         return $params;
     }
 
+    public static function getPickup($params)
+    {
+
+        return $params;
+    }
+
+    public static function getDeliver($params)
+    {
+
+        return $params;
+    }
+
     /**
      *  Проверяем есть ли запрашиваемое поле в ответе от сервера и возвращаем его
      *
