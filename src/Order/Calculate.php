@@ -66,6 +66,18 @@ class Calculate extends FunctionClass
         ]
     ];
 
+    /**
+     *  Вся логика валидации находится здесь
+     *
+     *  Функция отправляет данные либо с посчитанным объемом либо с размерами
+     *  подробнее смотри в документации к апи
+     *  $volume = true - поумолчанию функция ожидает объем
+     *  для отправки данных с размерами требуется передать $volume = false
+     *
+     * Calculate constructor.
+     * @param array $params
+     * @param bool $volume
+     */
     public function __construct(array $params = array(), bool $volume = true)
     {
         parent::__construct($params);
@@ -78,6 +90,7 @@ class Calculate extends FunctionClass
             Validation::checkNecessary($this->params, Size::necessary());
         }
 
+        //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
     }
 

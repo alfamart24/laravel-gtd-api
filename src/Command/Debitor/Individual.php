@@ -5,14 +5,18 @@ namespace Wstanley\Kitapi\Command\Debitor;
 /*
  *  Индивидуальный предприниматель
  */
-
 class Individual
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [
 
             'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+
+            'country_code'          => 'Код страны',
 
             'name_ip'               => 'ФИО контактного лица (ИП)',
             'organization_name_ip'  => 'ФИО (ИП)',
@@ -26,6 +30,9 @@ class Individual
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function optional()
     {
         return [
@@ -38,6 +45,9 @@ class Individual
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function dependent()
     {
         return [

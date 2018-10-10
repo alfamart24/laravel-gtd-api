@@ -4,6 +4,9 @@ namespace Wstanley\Kitapi\Command;
 
 class Pickup
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [
@@ -14,6 +17,9 @@ class Pickup
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function optional()
     {
         return [
@@ -27,6 +33,9 @@ class Pickup
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function dependent()
     {
         return [
@@ -35,8 +44,7 @@ class Pickup
                 'field'         => 'pickup_r',
                 'depend'        => true,
                 'sing'          => '=',
-                'fieldDepend'   => [
-                                    'pickup_street' => 'Улица другого адреса отправителя',
+                'fieldDepend'   => ['pickup_street' => 'Улица другого адреса отправителя',
                                     'pickup_house'  => 'Дом другого адреса отправителя',]
             ],
         ];

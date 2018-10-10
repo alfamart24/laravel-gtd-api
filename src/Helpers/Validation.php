@@ -5,11 +5,13 @@ namespace Wstanley\Kitapi\Helpers;
 class Validation
 {
     /**
-     *  проверяем нет ли лишних параметров
+     *  Проверяем нет ли лишних параметров
+     *  Проверка идет по ключам массива
      *
-     * @param $params
-     * @param $necessary
-     * @param $optional
+     * @param $params       // массив который нужно проверить
+     * @param $necessary    // массив с обязательными полями
+     * @param $optional     // массив с необязательными полями
+     * @throws \Exception
      */
     public static function checkParams($params, $necessary, $optional)
     {
@@ -17,33 +19,39 @@ class Validation
 
             if ((!array_key_exists($key, $necessary) && !array_key_exists($key, $optional))) {
 
-                throw new \Exception('передан не существующий параметр ' . $key);
+                throw new \Exception('передан не существующий параметр - ' . $key);
             }
         }, ARRAY_FILTER_USE_KEY);
     }
 
     /**
-     *  проверяем все ли обязательные поля пришли
+     *  Проверяем все ли обязательные поля пришли
+     *  Проверка идет по ключам массива
      *
-     * @param $params
-     * @param $necessary
+     * @param $params       // массив который нужно проверить
+     * @param $necessary    // массив с обязательными полями
+     * @throws \Exception
      */
     public static function checkNecessary($params, $necessary)
     {
-        array_filter($necessary, function ($key) use ($params) {
+        array_filter($necessary, function ($key) use ($params, $necessary) {
 
             if (!array_key_exists($key, $params)) {
 
-                throw new \Exception('не переданы все обязательные параметры necessary ' . $key);
+                throw new \Exception('не переданы все обязательные параметры necessary - '
+                    . $necessary[$key] . ' (' . $key . ')');
             }
         }, ARRAY_FILTER_USE_KEY);
     }
 
     /**
      *  Проверяем зависимости полей
+     *  Можете добавить свои зависимости
+     *  Следите за тем что checkNecessary() проверяет массив по ключам
      *
      * @param $params
      * @param $dependent
+     * @throws \Exception
      */
     public static function checkDependent($params, $dependent)
     {
@@ -56,7 +64,7 @@ class Validation
                     if (isset($params[$rule['field']]) && $params[$rule['field']] >= $rule['depend']) {
 
                         self::checkNecessary($params, is_array($rule['fieldDepend'])
-                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'стал обязательный по условию']);
                     }
                     break;
 
@@ -65,16 +73,18 @@ class Validation
                     if (isset($params[$rule['field']]) && $params[$rule['field']] > $rule['depend']) {
 
                         self::checkNecessary($params, is_array($rule['fieldDepend'])
-                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'стал обязательный по условию']);
                     }
                     break;
 
                 case '=' :
 
-                    if (isset($params[$rule['field']]) && $params[$rule['field']] = $rule['depend']) {
+//                    dd($rule['field']);
+
+                    if (isset($params[$rule['field']]) && $params[$rule['field']] == $rule['depend']) {
 
                         self::checkNecessary($params, is_array($rule['fieldDepend'])
-                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'теперь обязательный']);
+                            ? $rule['fieldDepend'] : [$rule['fieldDepend'] => 'стал обязательный по условию']);
                     }
                     break;
 
@@ -85,29 +95,17 @@ class Validation
         });
     }
 
-    public static function isArray($array)
+    /**
+     *  Проверяем массив ли передали
+     *
+     * @param $array
+     * @param $name
+     * @throws \Exception
+     */
+    public static function isArray($array, $name)
     {
         if (!is_array($array)) {
-
-
-            //todo дописать вывод
-            throw new \Exception('параметр ' . $array . ' должен быть массивом');
-        }
-    }
-
-    public static function checkVolume($params)
-    {
-        if (!isset($params['volume'])) {
-
-            throw new \Exception('В переданном массиве не найдено Volume');
-        }
-    }
-
-    public static function checkSize($params)
-    {
-        if (!isset($params['volume'])) {
-
-            throw new \Exception('В переданном массиве не найдено Volume');
+            throw new \Exception('параметр ' . $name . ' должен быть массивом');
         }
     }
 }

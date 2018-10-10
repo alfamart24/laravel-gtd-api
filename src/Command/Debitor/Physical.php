@@ -5,9 +5,11 @@ namespace Wstanley\Kitapi\Command\Debitor;
 /*
  *  физическое лицо
  */
-
 class Physical
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [
@@ -15,6 +17,7 @@ class Physical
             'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
 
             'country_code'          => 'Код страны',
+
             'real_country'          => 'Страна (Физическое лицо)',
             'real_city'             => 'Город (Физическое лицо)',
             'real_street'           => 'Улица (Физическое лицо)',
@@ -25,6 +28,9 @@ class Physical
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function optional()
     {
         return [
@@ -34,6 +40,9 @@ class Physical
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function dependent()
     {
         return [

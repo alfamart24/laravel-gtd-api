@@ -5,14 +5,18 @@ namespace Wstanley\Kitapi\Command\Debitor;
 /*
  *      Юридическое лицо
  */
-
 class Legal
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [
 
             'debitor_type'          => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
+
+            'country_code'          => 'Код страны',
 
             'name_ur'               => 'ФИО контактного лица (Юридическое лицо)',
             'organization_name_ur'  => 'Наименование организации',
@@ -27,6 +31,9 @@ class Legal
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function optional()
     {
         return [
@@ -40,6 +47,9 @@ class Legal
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function dependent()
     {
         return [

@@ -4,6 +4,9 @@ namespace Wstanley\Kitapi\Command;
 
 class Deliver
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [
@@ -14,6 +17,9 @@ class Deliver
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function optional()
     {
         return [
@@ -27,6 +33,9 @@ class Deliver
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function dependent()
     {
         return [
@@ -35,10 +44,8 @@ class Deliver
                 'field'         => 'delivery_r',
                 'depend'        => true,
                 'sing'          => '=',
-                'fieldDepend'   => [
-                                    'delivery_street' => 'Улица другого адреса получателя',
-                                    'delivery_house'  => 'Дом другого адреса получателя',
-                                    ]
+                'fieldDepend'   => ['delivery_street' => 'Улица другого адреса получателя',
+                                    'delivery_house'  => 'Дом другого адреса получателя',]
             ],
         ];
     }

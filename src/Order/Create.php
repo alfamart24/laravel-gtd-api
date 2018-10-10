@@ -19,36 +19,33 @@ class Create extends FunctionClass
 
     protected $necessary = [
 
-        'city_pickup_code'   => 'Код города откуда',
-        'city_delivery_code' => 'Код города куда',
-        'type'               => 'Вид перевозки',
-        'declared_price'     => 'Объявленная стоимость груза (руб)',
+        'city_pickup_code'      => 'Код города откуда',
+        'city_delivery_code'    => 'Код города куда',
+        'type'                  => 'Вид перевозки',
+        'declared_price'        => 'Объявленная стоимость груза (руб)',
 
-        'customer'           => 'Заказчик (Debitor)',
-        'sender'             => 'Отправитель (Debitor)',
-        'receiver'           => 'Получатель (Debitor)',
+        'customer'              => 'Заказчик (Debitor)',
+        'sender'                => 'Отправитель (Debitor)',
+        'receiver'              => 'Получатель (Debitor)',
 
-        'count_place'        => 'Количество мест в позиции',
-        'weight'             => 'Масса КГ позиции',
-
-//        'debitor_type'     => 'Код города откуда (1-физик, 2-ип, 3-юрик)',
-//        'debitor'          => 'Номер дебитора',
+        'count_place'           => 'Количество мест в позиции',
+        'weight'                => 'Масса КГ позиции',
     ];
 
     protected $optional = [
 
-        'cargo_type_code'   => 'Код характера груза',
-        'service'           => 'Массив кодов услуг',
-        'confirmation_price'=> 'Наличие документов подтверждающих стоимость',
+        'cargo_type_code'       => 'Код характера груза',
+        'service'               => 'Массив кодов услуг',
+        'confirmation_price'    => 'Наличие документов подтверждающих стоимость',
 
-        'height'            => 'Высота груза (см) позиции',
-        'width'             => 'Ширина груза (см) позиции',
-        'length'            => 'Длина груза (см) позиции',
-        'volume'            => 'Объем М³ позиции',
+        'height'                => 'Высота груза (см) позиции',
+        'width'                 => 'Ширина груза (см) позиции',
+        'length'                => 'Длина груза (см) позиции',
+        'volume'                => 'Объем М³ позиции',
 
-        'pick_up'           => 'Забор груза (Pickup)',
+        'pick_up'               => 'Забор груза (Pickup)',
 
-        'deliver'           => 'Доставка груза по городу (Deliver)',
+        'deliver'               => 'Доставка груза по городу (Deliver)',
 
         'insurance'             => 'Услуга страхования груза',
         'insurance_agent_code'  => 'Код страхового агента',
@@ -70,8 +67,8 @@ class Create extends FunctionClass
             'field'         => 'declared_price',
             'depend'        => 50000,
             'sing'          => '>',
-            'fieldDepend'   => ['confirmation_price' => 'Наличие документов подтверждающих стоимость',
-                                'have_doc'  => 'Есть документы подтверждающие стоимость груза',]
+            'fieldDepend'   => ['confirmation_price'    => 'Наличие документов подтверждающих стоимость',
+                                'have_doc'              => 'Есть документы подтверждающие стоимость груза',]
         ],
 
         2 => [
@@ -96,32 +93,43 @@ class Create extends FunctionClass
         ],
     ];
 
+    /**
+     *  Вся логика валидации находится здесь
+     *
+     *  Функция отправляет данные либо с посчитанным объемом либо с размерами
+     *  подробнее смотри в документации к апи
+     *  $volume = true - поумолчанию функция ожидает объем
+     *  для отправки данных с размерами требуется передать $volume = false
+     *
+     * Create constructor.
+     * @param array $params
+     * @param bool $volume
+     */
     public function __construct(array $params = array(), bool $volume = true)
     {
         parent::__construct($params);
 
         Validation::checkDependent($this->params, $this->dependent);
 
-
-
-        //todo проверить debitor pick_up deliver что это массив
-
-        Validation::isArray($this->params['sender']);
-
+        Validation::isArray($this->params['customer'], 'customer');
+        Validation::isArray($this->params['sender'], 'sender');
+        Validation::isArray($this->params['receiver'], 'receiver');
 
         $this->checkDebitor($this->params['customer']);
-//        $this->checkDebitor($this->params['sender']);
-//        $this->checkDebitor($this->params['receiver']);
+        $this->checkDebitor($this->params['sender']);
+        $this->checkDebitor($this->params['receiver']);
 
-        if (isset($this->params['pick_up']) && $this->params['pick_up']) {
+        if (isset($this->params['pick_up']) && !empty($this->params['pick_up'])) {
 
+            Validation::isArray($this->params['pick_up'], 'pick_up');
             Validation::checkNecessary($this->params['pick_up'], Pickup::necessary());
             Validation::checkDependent($this->params['pick_up'], Pickup::dependent());
             Validation::checkParams($this->params['pick_up'], Pickup::necessary(), Pickup::optional());
         }
 
-        if (isset($this->params['deliver']) && $this->params['deliver']) {
+        if (isset($this->params['deliver']) && !empty($this->params['deliver'])) {
 
+            Validation::isArray($this->params['deliver'], 'deliver');
             Validation::checkNecessary($this->params['deliver'], Deliver::necessary());
             Validation::checkDependent($this->params['deliver'], Deliver::dependent());
             Validation::checkParams($this->params['deliver'], Deliver::necessary(), Deliver::optional());
@@ -133,13 +141,14 @@ class Create extends FunctionClass
             Validation::checkNecessary($this->params, Size::necessary());
         }
 
-
+        //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
-        dd($this->params, 'stop');
+//        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
     {
+        Validation::checkNecessary($debitor, ['debitor_type' => '1-физик, 2-ип, 3-юрик']);
 
         switch ($debitor['debitor_type']) {
 
@@ -162,8 +171,7 @@ class Create extends FunctionClass
                 break;
 
             default :
-                throw new \Exception(
-                    sprintf("параметр 'debitor_type' должен быть равен 1 - физик, 2 - ИП, 3 - Юр.лицо"));
+                throw new \Exception("параметр 'debitor_type' должен быть равен 1 - физик, 2 - ИП, 3 - Юр.лицо");
                 break;
         }
     }

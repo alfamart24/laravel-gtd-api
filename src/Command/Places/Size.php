@@ -4,6 +4,9 @@ namespace Wstanley\Kitapi\Command\Places;
 
 class Size
 {
+    /**
+     * @return array
+     */
     public static function necessary()
     {
         return [

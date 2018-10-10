@@ -7,15 +7,14 @@ class StringHelp
     /*
      *  Почемуто ответ приходит и содержит первый символ "с"
      *  он мешает декодировать json
-     *  поэтомы проверяем есть ли первый симсол "с" и удаляем его
+     *  поэтому проверяем есть ли первый симсол "с" и удаляем его
+     *  '~^(c)[\[]~'
+     *
+     * @param $string
+     * @return bool|string
      */
     public static function checkC($string)
     {
-        return preg_match('~^(c)~', $string) ? self::cutC($string) : $string; // '~^(c)[\[]~'
-    }
-
-    private static function cutC($string)
-    {
-        return $string = substr($string, 1);
+        return preg_match('~^(c)~', $string) ? substr($string, 1) : $string;
     }
 }

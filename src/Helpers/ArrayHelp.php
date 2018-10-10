@@ -5,8 +5,7 @@ namespace Wstanley\Kitapi\Helpers;
 class ArrayHelp
 {
     /**
-     *  преобразует данные о местах и позициях
-     *  в нужный вид
+     *  Преобразует данные о местах и позициях в нужный вид
      *
      * @param $params
      * @return mixed
@@ -36,8 +35,7 @@ class ArrayHelp
     }
 
     /**
-     *  проверяем есть ли запрашиваемое поле
-     *  в ответе от сервера и возвращаем его
+     *  Проверяем есть ли запрашиваемое поле в ответе от сервера и возвращаем его
      *
      * @param $data
      * @param $type
@@ -52,10 +50,8 @@ class ArrayHelp
 
                 return $result->$type;
             }
-
             $key = key($result);
         }
-
         $key = isset($key) ? $key : 'другой';
 
         throw new \Exception(sprintf('метода %s в ответе не было, попробуйте %s', $type, $key));

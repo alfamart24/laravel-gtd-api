@@ -28,8 +28,6 @@ abstract class FunctionClass implements FunctionInterface
         //  удаляем лишнее поле
         unset($this->params['_token']);
 
-
-        //todo здесь вопрос будет ли работать!
         //  проверяем нет ли лишних параметров
         Validation::checkParams($this->params, $this->necessary, $this->optional);
 
