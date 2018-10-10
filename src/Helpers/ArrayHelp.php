@@ -34,14 +34,21 @@ class ArrayHelp
         return $params;
     }
 
-    public static function getPickup($params)
+    /**
+     *  Приводим параметры к нужному виду
+     *  Избавляемся от массивов
+     *
+     * @param $params
+     * @param $name
+     * @return mixed
+     */
+    public static function getParams($params, $name)
     {
+        array_filter($params[$name],
+            function ($value, $key) use (&$params)
+                { $params[$key] = $value; }, ARRAY_FILTER_USE_BOTH);
 
-        return $params;
-    }
-
-    public static function getDeliver($params)
-    {
+        $params[$name] = true;
 
         return $params;
     }

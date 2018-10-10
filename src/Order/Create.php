@@ -120,21 +120,14 @@ class Create extends FunctionClass
         $this->checkDebitor($this->params['receiver']);
 
 
-
-        
-
         //todo рализовать getы  последнее условие не выполняется pick_up
-
-
-
-
         if (isset($this->params['pick_up']) && !empty($this->params['pick_up'])) {
 
             Validation::isArray($this->params['pick_up'], 'pick_up');
             Validation::checkNecessary($this->params['pick_up'], Pickup::necessary());
             Validation::checkDependent($this->params['pick_up'], Pickup::dependent());
             Validation::checkParams($this->params['pick_up'], Pickup::necessary(), Pickup::optional());
-            $this->params = ArrayHelp::getPickup($this->params);
+            $this->params = ArrayHelp::getParams($this->params, 'pick_up');
         }
 
         if (isset($this->params['deliver']) && !empty($this->params['deliver'])) {
@@ -143,7 +136,7 @@ class Create extends FunctionClass
             Validation::checkNecessary($this->params['deliver'], Deliver::necessary());
             Validation::checkDependent($this->params['deliver'], Deliver::dependent());
             Validation::checkParams($this->params['deliver'], Deliver::necessary(), Deliver::optional());
-            $this->params = ArrayHelp::getDeliver($this->params);
+            $this->params = ArrayHelp::getParams($this->params, 'deliver');
         }
 
         if ($volume) {
@@ -154,7 +147,7 @@ class Create extends FunctionClass
 
         //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
-//        dd($this->params, 'stop');
+        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
