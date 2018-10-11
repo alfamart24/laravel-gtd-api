@@ -90,12 +90,12 @@ class Create extends FunctionClass
             'fieldDepend'   => 'insurance_agent_code'
         ],
 
-        4 => [
-            'field'         => 'pick_up',
-            'depend'        => false,
-            'sing'          => '=',
-            'fieldDepend'   => 'dispatch_address_code'
-        ],
+//        4 => [
+//            'field'         => 'pick_up',
+//            'depend'        => false,
+//            'sing'          => '=',
+//            'fieldDepend'   => 'dispatch_address_code'
+//        ],
     ];
 
     /**
