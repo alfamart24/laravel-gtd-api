@@ -19,12 +19,12 @@ class ArrayHelp
 
             if ($volume) {
 
-                $params['places'][$i]['volume']      = $params['volume'][$i];
+                $params['places'][$i]['volume']  = $params['volume'][$i];
             } else {
 
-                $params['places'][$i]['height']      = $params['height'][$i];
-                $params['places'][$i]['width']       = $params['width'][$i];
-                $params['places'][$i]['length']      = $params['length'][$i];
+                $params['places'][$i]['height']  = $params['height'][$i];
+                $params['places'][$i]['width']   = $params['width'][$i];
+                $params['places'][$i]['length']  = $params['length'][$i];
             }
         }
 

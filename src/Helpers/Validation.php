@@ -2,6 +2,8 @@
 
 namespace Wstanley\Kitapi\Helpers;
 
+use Wstanley\Kitapi\KitService;
+
 class Validation
 {
     /**
@@ -79,8 +81,6 @@ class Validation
 
                 case '=' :
 
-//                    dd($rule['field']);
-
                     if (isset($params[$rule['field']]) && $params[$rule['field']] == $rule['depend']) {
 
                         self::checkNecessary($params, is_array($rule['fieldDepend'])
@@ -106,6 +106,21 @@ class Validation
     {
         if (!is_array($array)) {
             throw new \Exception('параметр ' . $name . ' должен быть массивом');
+        }
+    }
+
+    public static function dispatchAddressCode($city = null, $params)
+    {
+        if ($city == null) {
+            throw new \Exception('не передан параметр city_pickup_code');
+        }
+
+        $response = (new KitService())->cityTdd(['code' => $city])->all();
+
+        if (!$response[0]->required_pickup && !$response[0]->required_delivery) {
+
+            self::checkNecessary($params,
+                ['dispatch_address_code' => "'dispatch_address_code' обязательный для города " . $response[0]->name]);
         }
     }
 }

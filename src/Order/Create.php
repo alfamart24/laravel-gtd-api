@@ -33,14 +33,13 @@ class Create extends FunctionClass
         'count_place'           => 'Количество мест в позиции',
         'weight'                => 'Масса КГ позиции',
 
-        //  перенес сюда он обязательный, если нет то передаем пустой массив
+        //  перенес сюда он обязательный, если не требуется забор груза то передаем пустой массив
         'pick_up'               => 'Забор груза (Pickup)',
     ];
 
     protected $optional = [
 
         'cargo_type_code'       => 'Код характера груза',
-        'service'               => 'Массив кодов услуг',
         'confirmation_price'    => 'Наличие документов подтверждающих стоимость',
 
         'height'                => 'Высота груза (см) позиции',
@@ -56,13 +55,15 @@ class Create extends FunctionClass
         'insurance_agent_code'  => 'Код страхового агента',
         'have_doc'              => 'Есть документы подтверждающие стоимость груза',
 
+        'service'               => 'Массив кодов услуг',
         'currency_code'         => 'Валюта результата расчета',
+
         'dispatch_address_code' => 'Адрес терминала отправки',
         'all_places_same'       => 'Все места одинаковы по размеру',
 
         'additional_payment_shipping'   => 'Плательщик перевозки',
         'additional_payment_pickup'     => 'Плательщик забора груза',
-        'additional_payment_shipping-?' => 'Плательщик доставки груза',
+        'additional_payment_delivery'   => 'Плательщик доставки груза',
     ];
 
     //  обязательные поля по условию
@@ -90,6 +91,9 @@ class Create extends FunctionClass
             'fieldDepend'   => 'insurance_agent_code'
         ],
 
+//        dispatch_address_code зависит от конкретного города.
+//          Если в нем нет обязательной забора\доставки до данное поле обязательно к заполонению.
+//          Данную информацию по каждому городу можно получить методом /2.0/tdd/city/get-list
 //        4 => [
 //            'field'         => 'pick_up',
 //            'depend'        => false,
@@ -116,6 +120,8 @@ class Create extends FunctionClass
 
         Validation::checkDependent($this->params, $this->dependent);
 
+        Validation::dispatchAddressCode($this->params['city_pickup_code'], $this->params);
+
         Validation::isArray($this->params['customer'], 'customer');
         Validation::isArray($this->params['sender'], 'sender');
         Validation::isArray($this->params['receiver'], 'receiver');
@@ -124,8 +130,6 @@ class Create extends FunctionClass
         $this->checkDebitor($this->params['sender']);
         $this->checkDebitor($this->params['receiver']);
 
-
-        //todo рализовать getы  последнее условие не выполняется pick_up
         if (isset($this->params['pick_up']) && !empty($this->params['pick_up'])) {
 
             Validation::isArray($this->params['pick_up'], 'pick_up');
@@ -144,6 +148,16 @@ class Create extends FunctionClass
             $this->params = ArrayHelp::getParams($this->params, 'deliver');
         }
 
+        if (isset($this->params['service']) && !empty($this->params['service'])) {
+
+            Validation::isArray($this->params['service'], 'service');
+        }
+
+        if (isset($this->params['currency_code']) && !empty($this->params['currency_code'])) {
+
+            Validation::isArray($this->params['currency_code'], 'currency_code');
+        }
+
         if ($volume) {
             Validation::checkNecessary($this->params, Volume::necessary());
         } else {
@@ -152,7 +166,7 @@ class Create extends FunctionClass
 
         //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
-//        dd($this->params, 'stop');
+        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
