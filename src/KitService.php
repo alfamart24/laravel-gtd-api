@@ -83,7 +83,7 @@ class KitService
      */
     public function create(array $params = array(), bool $volume = true)
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Create($params, $volume));
+        return $this->json(new \Wstanley\Kitapi\Order\Create($params, $volume));
     }
 
 
@@ -95,7 +95,7 @@ class KitService
      */
     public function calculate(array $params = array(), bool $volume = true)
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
+        return $this->json(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
     }
 
     /**
@@ -106,7 +106,7 @@ class KitService
      */
     public function cityTdd(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Tdd\City($params));
+        return $this->json(new \Wstanley\Kitapi\Tdd\City($params));
     }
 
     /**
@@ -117,7 +117,7 @@ class KitService
      */
     public function country(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Tdd\Country($params));
+        return $this->json(new \Wstanley\Kitapi\Tdd\Country($params));
     }
 
     /**
@@ -128,7 +128,7 @@ class KitService
      */
     public function Region(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Tdd\Region($params));
+        return $this->json(new \Wstanley\Kitapi\Tdd\Region($params));
     }
 
     /**
@@ -139,7 +139,7 @@ class KitService
      */
     public function currency(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Currency($params));
+        return $this->json(new \Wstanley\Kitapi\Order\Currency($params));
     }
 
     /**
@@ -150,7 +150,7 @@ class KitService
      */
     public function insurance(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Insurance($params));
+        return $this->json(new \Wstanley\Kitapi\Order\Insurance($params));
     }
 
     /**
@@ -161,7 +161,7 @@ class KitService
      */
     public function service(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Service($params));
+        return $this->json(new \Wstanley\Kitapi\Order\Service($params));
     }
 
     /**
@@ -172,7 +172,7 @@ class KitService
      */
     public function status(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Status($params));
+        return $this->json(new \Wstanley\Kitapi\Order\Status($params));
     }
 
     /**
@@ -183,7 +183,7 @@ class KitService
      */
     public function cityGeography(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\City($params));
+        return $this->json(new \Wstanley\Kitapi\Geography\City($params));
     }
 
     /**
@@ -194,7 +194,7 @@ class KitService
      */
     public function email(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Email($params));
+        return $this->json(new \Wstanley\Kitapi\Geography\Email($params));
     }
 
     /**
@@ -205,7 +205,7 @@ class KitService
      */
     public function phone(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Phone($params));
+        return $this->json(new \Wstanley\Kitapi\Geography\Phone($params));
     }
 
     /**
@@ -216,7 +216,7 @@ class KitService
      */
     public function schedule(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Schedule($params));
+        return $this->json(new \Wstanley\Kitapi\Geography\Schedule($params));
     }
 
     /**
@@ -227,6 +227,6 @@ class KitService
      */
     public function scheduleGroup(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\ScheduleGroup($params));
+        return $this->json(new \Wstanley\Kitapi\Geography\ScheduleGroup($params));
     }
 }

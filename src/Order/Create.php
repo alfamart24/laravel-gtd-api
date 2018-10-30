@@ -33,8 +33,9 @@ class Create extends FunctionClass
         'count_place'           => 'Количество мест в позиции',
         'weight'                => 'Масса КГ позиции',
 
-        //  перенес сюда он обязательный, если не требуется забор груза то передаем пустой массив
+        //  перенес сюда они обязательный, если не требуется забор груза и доставка то передаем пустые массивы
         'pick_up'               => 'Забор груза (Pickup)',
+        'deliver'               => 'Доставка груза по городу (Deliver)',
     ];
 
     protected $optional = [
@@ -48,8 +49,7 @@ class Create extends FunctionClass
         'volume'                => 'Объем М³ позиции',
 
 //        'pick_up'               => 'Забор груза (Pickup)',
-
-        'deliver'               => 'Доставка груза по городу (Deliver)',
+//        'deliver'               => 'Доставка груза по городу (Deliver)',
 
         'insurance'             => 'Услуга страхования груза',
         'insurance_agent_code'  => 'Код страхового агента',
@@ -125,27 +125,31 @@ class Create extends FunctionClass
         Validation::isArray($this->params['customer'], 'customer');
         Validation::isArray($this->params['sender'], 'sender');
         Validation::isArray($this->params['receiver'], 'receiver');
+        Validation::isArray($this->params['pick_up'], 'pick_up');
+        Validation::isArray($this->params['deliver'], 'deliver');
 
         $this->checkDebitor($this->params['customer']);
         $this->checkDebitor($this->params['sender']);
         $this->checkDebitor($this->params['receiver']);
 
-        if (isset($this->params['pick_up']) && !empty($this->params['pick_up'])) {
+        if (!empty($this->params['pick_up'])) {
 
-            Validation::isArray($this->params['pick_up'], 'pick_up');
             Validation::checkNecessary($this->params['pick_up'], Pickup::necessary());
             Validation::checkDependent($this->params['pick_up'], Pickup::dependent());
             Validation::checkParams($this->params['pick_up'], Pickup::necessary(), Pickup::optional());
             $this->params = ArrayHelp::getParams($this->params, 'pick_up');
+        } else {
+            $this->params['pick_up'] = 0;
         }
 
-        if (isset($this->params['deliver']) && !empty($this->params['deliver'])) {
+        if (!empty($this->params['deliver'])) {
 
-            Validation::isArray($this->params['deliver'], 'deliver');
             Validation::checkNecessary($this->params['deliver'], Deliver::necessary());
             Validation::checkDependent($this->params['deliver'], Deliver::dependent());
             Validation::checkParams($this->params['deliver'], Deliver::necessary(), Deliver::optional());
             $this->params = ArrayHelp::getParams($this->params, 'deliver');
+        } else {
+            $this->params['deliver'] = 0;
         }
 
         if (isset($this->params['service']) && !empty($this->params['service'])) {
@@ -166,7 +170,7 @@ class Create extends FunctionClass
 
         //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
-        dd($this->params, 'stop');
+//        dd($this->params, 'stop');
     }
 
     private function checkDebitor($debitor)
