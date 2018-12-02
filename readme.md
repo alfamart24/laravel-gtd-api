@@ -1,7 +1,8 @@
 
 # Laravel TK GTD api
 
-Api для работы с ТК КИТ. Рализована работа калькулятора и многих других функций. По мере разработки буду обновлять документацию.<br>
+Api для работы с ТК GTD. <br>
+Рализована работа калькулятора, создание ордера и многих других функций. По мере разработки буду обновлять документацию.<br>
 По вопросам работы пишите в телеграмм WStanley
 
 <br>
@@ -9,7 +10,7 @@ Api для работы с ТК КИТ. Рализована работа кал
 
 # Installation
 ```
-composer require wstanley/Gtdapi:dev-master
+composer require wstanley/gtdapi:dev-master
 ```
 
 <br>
@@ -18,7 +19,7 @@ composer require wstanley/Gtdapi:dev-master
 
 Добавляем токен в файл .env
 ```
-TOKEN_Gtd=
+TOKEN_GTD=
 ```
 
 Подключаем сервис в контроллере:
@@ -62,7 +63,11 @@ $service->scheduleGroup()->all()
 
 #### Расчет стоимости - `order/calculate`<br>
 ```
+Получение всего отвера от сервера:
 $service->calculate(...)->all()
+
+Заполнение свойств метода с ответа (подробнее см ниже)
+$service->calculate(...)->calculateResult()
 ```
 
 #### Получение списка валют - `order/currency/get-list`<br>
@@ -108,7 +113,11 @@ $service->region()->all()
 
 Чтобы получить весь список городов используем all().<br> all() используется для получения полного ответа от сервера.
 ```
+Получение всего ответа от сервера
 $cyties = $service->cityTdd()->all()
+
+Вернет массив вида [код города => имя города]
+$cyties = $service->cityTdd()->cities()
 ```
 Для отправки запроса передаем параметры в функцию
 ```
@@ -123,9 +132,6 @@ $cyti = $service->cityTdd(
 ```
 $cyti = $service->cityTdd(["code" => "660002900000"])->all()
 ```
-В документации описано что тип принимаемого параметра "строка либо массив", но по факту если отправить "code" => ["660002900000", "660002900000"] то приходит ошибка 500. Поэтому либо получаем полный список, либо передаем строкой "code" => "660002900000".
-<br>
-
 Какие параметры принимает конкретная функция вы можете узнать из документации, либо в классе функции, в поле optional перечислены необязательные параметры, в поле  necessary перечислены обязательные параметры.
 
 <br>
@@ -159,11 +165,28 @@ $cargoType = $service->insurance()->cargo_type()
 
 ### С указанием объема багажа `volume`
 Получение полного ответа от сервера
-
 ```
 $response = $service->calculate($request->all())->all();
 ```
-Обязательные параметры для расчета:<br>
+Заполнение полей метода ответом от сервера
+```
+$response = $service->calculate($request->all())->calculateResult();
+
+Поля:
+$response->standart
+$response->economy
+$response->express
+$response->standard_courier
+$response->express_courier
+
+Получение цены:
+$response->cost('standart')
+
+Проверить верно ли произведен расчет можно(нужно) вот так
+$response->error = 'Ошибка расчета' - переданы неправильные параметры
+$response->error = null             - поля ответа заполнены(расчет верный)
+```
+Обязательные параметры для расчета стоимости:<br>
 ```
 'city_pickup_code'      => 'Код города откуда',<br>
 'city_delivery_code'    => 'Код города куда',<br>
@@ -199,6 +222,8 @@ $response = $service->calculate($request->all())->all();
 Пример поля `input` на форме калькулятора:
  ```
 <input type="text" name="volume[]" placeholder="Объем">
+<input type="text" name="weight[]" placeholder="Вес">
+<input type="text" name="count_place[]" placeholder="Количество мест">
  ```
  Также у функции `canculate` <u>есть зависимые параметры</u>, с полной работой функции вы можете ознакомиться в документации.<br>
  Функция не отправит запрос пока не передадут все требуемяе параметры для расчета стоимости, выпадающие исключения подскажут чего не хватает.
@@ -207,22 +232,24 @@ $response = $service->calculate($request->all())->all();
 
 Получить стоимость перевозки можно так
 ```
-$price = $response->standart()->cost;
-$price = $response->economy()->cost;
-$price = $response->express()->cost;
-$price = $response->standard_courier()->cost;
-$price = $response->express_courier()->cost;
+$response = $service->calculate($request->all())->calculateResult();
+
+$price = $response->cost('standart')
+$price = $response->cost('economy')
+$price = $response->cost('express')
+$price = $response->cost('standard_courier')
+$price = $response->cost('express_courier')
 ```
 Либо сразу так
 ```
-$price = $service->calculate($request->all())->standart()->cost;
+$price = $service->calculate($request->all())->calculateResult()->cost('standart');
 ```
 
 <br>
 
 ### С указанием размеров багажа `height`, `width`, `length`
-В случае работы с размерами в функцию требуется передать флаг `false` вторым параметром, ианче расчет будет вестись как для объема. 
-
+В случае работы с размерами в функцию требуется передать флаг `false` вторым параметром, ианче расчет будет вестись как для объема.<br> 
+Получение полного ответа от сервера
 ```
 $response = $service->calculate($request->all(), false)->all();
 ```
@@ -270,22 +297,24 @@ $response = $service->calculate($request->all(), false)->all();
 Пример поля `input` на форме калькулятора:
  ```
 <input type="text" name="width[]" placeholder="Укажите ширину">
+<input type="text" name="height[]" placeholder="Укажите высоту">
  ```
  Также у функции `canculate` <u>есть зависимые параметры</u>, с полной работой функции вы можете ознакомиться в документации.<br>
  Функция не отправит запрос пока не передадут все требуемяе параметры для расчета стоимости, выпадающие исключения подскажут чего не хватает.
   <br>
   <br>
  
- Получить стоимость перевозки можно так
- 
- ```
- $price = $response->standart()->cost;
- $price = $response->economy()->cost;
- $price = $response->express()->cost;
- $price = $response->standard_courier()->cost;
- $price = $response->express_courier()->cost;
- ```
- Либо сразу так
- ```
- $price = $service->calculate($request->all(), false)->standart()->cost;
- ```
+Получить стоимость перевозки можно так
+```
+$response = $service->calculate($request->all())->calculateResult();
+
+$price = $response->cost('standart')
+$price = $response->cost('economy')
+$price = $response->cost('express')
+$price = $response->cost('standard_courier')
+$price = $response->cost('express_courier')
+```
+Либо сразу так
+```
+$price = $service->calculate($request->all())->calculateResult()->cost('standart');
+```

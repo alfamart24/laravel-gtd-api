@@ -127,8 +127,8 @@ class Calculate extends FunctionClass
 
     public function cost($name)
     {
-        return isset( $this->$name()->cost)
-            ? $this->$name()->cost : sprintf('Цены в методе %s нет', $name);
+        return isset($this->$name()->cost)
+            ? $this->$name()->cost : 'Ошибка расчета'; // sprintf('Цены в методе %s нет', $name);
     }
 
     /**
