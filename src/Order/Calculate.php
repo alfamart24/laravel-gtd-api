@@ -106,6 +106,12 @@ class Calculate extends FunctionClass
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
     }
 
+    /**
+     *  Заполняем поля класса ответом от сервера
+     *  Либо заполняется ошибка $this->error = 'Ошибка расчета'
+     *
+     * @return $this
+     */
     public function calculateResult()
     {
         if (!is_array($this->response)) {
@@ -120,11 +126,24 @@ class Calculate extends FunctionClass
         return $this;
     }
 
+    /**
+     *  Получение адреса терминада доставки
+     *  требуется для оформления ордера
+     *
+     * @param $name
+     * @return bool
+     */
     public function dispatch_address($name)
     {
         return isset($this->$name->dispatch_address[0]) ? $this->$name->dispatch_address[0] : false;
     }
 
+    /**
+     *  Получение цены расчета
+     *
+     * @param $name
+     * @return string
+     */
     public function cost($name)
     {
         return isset($this->$name()->cost)
