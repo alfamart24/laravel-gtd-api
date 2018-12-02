@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Kitapi\Geography;
+namespace Wstanley\Gtdapi\Geography;
 
-use Wstanley\Kitapi\FunctionClass;
+use Wstanley\Gtdapi\FunctionClass;
 
 class Phone extends FunctionClass
 {

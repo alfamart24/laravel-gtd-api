@@ -1,5 +1,5 @@
 
-# Laravel TK kit api
+# Laravel TK GTD api
 
 Api для работы с ТК КИТ. Рализована работа калькулятора и многих других функций. По мере разработки буду обновлять документацию.<br>
 По вопросам работы пишите в телеграмм WStanley
@@ -9,7 +9,7 @@ Api для работы с ТК КИТ. Рализована работа кал
 
 # Installation
 ```
-composer require wstanley/kitapi:dev-master
+composer require wstanley/Gtdapi:dev-master
 ```
 
 <br>
@@ -18,15 +18,15 @@ composer require wstanley/kitapi:dev-master
 
 Добавляем токен в файл .env
 ```
-TOKEN_KIT=
+TOKEN_Gtd=
 ```
 
 Подключаем сервис в контроллере:
 
 ```
-use Wstanley\Kitapi\KitService;
+use Wstanley\Gtdapi\GtdService;
 
-$service = new KitService();
+$service = new GtdService();
 ```
 
 <br>

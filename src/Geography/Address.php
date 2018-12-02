@@ -1,9 +1,8 @@
 <?php
 
-namespace Wstanley\Kitapi\Order;
+namespace Wstanley\Gtdapi\Geography;
 
-
-class Greate
+class Address
 {
     //метод не реализован
 }

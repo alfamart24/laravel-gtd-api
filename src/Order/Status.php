@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Kitapi\Order;
+namespace Wstanley\Gtdapi\Order;
 
-use Wstanley\Kitapi\FunctionClass;
+use Wstanley\Gtdapi\FunctionClass;
 
 class Status extends FunctionClass
 {

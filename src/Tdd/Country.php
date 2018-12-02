@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Kitapi\Tdd;
+namespace Wstanley\Gtdapi\Tdd;
 
-use Wstanley\Kitapi\FunctionClass;
+use Wstanley\Gtdapi\FunctionClass;
 
 class Country extends FunctionClass
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Kitapi\Tdd;
+namespace Wstanley\Gtdapi\Tdd;
 
-use Wstanley\Kitapi\FunctionClass;
+use Wstanley\Gtdapi\FunctionClass;
 
 class City extends FunctionClass
 {
@@ -14,4 +14,14 @@ class City extends FunctionClass
     ];
 
     protected $uri = 'tdd/city/get-list';
+
+    private $cities = [];
+
+    public function cities()
+    {
+        foreach ($this->response as $item) {
+            $this->cities[$item->code] = $item->name;
+        }
+        return $this->cities;
+    }
 }

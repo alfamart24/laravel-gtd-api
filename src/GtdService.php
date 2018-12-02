@@ -1,32 +1,32 @@
 <?php
 
-namespace Wstanley\Kitapi;
+namespace Wstanley\Gtdapi;
 
 use GuzzleHttp\Client;
-use Wstanley\Kitapi\helpers\StringHelp;
+use Wstanley\Gtdapi\Helpers\StringHelp;
 
-class KitService
+class GtdService
 {
     private $client;
-    private $base_uri = 'https://capi.tk-kit.com/2.0/';
+    private $gtd_uri = 'https://capi.gtdel.com/1.0/';
+    private $kit_uri = 'https://capi.tk-kit.com/2.0/';
 
     /**
-     * KitService constructor.
+     * Service constructor.
      * @throws \Exception
      */
     public function __construct()
     {
-        if (empty(getenv('TOKEN_KIT'))) {
-
-            throw new \Exception('Добавьте токен в файл .env TOKEN_KIT=token');
+        if (empty(getenv('TOKEN_GTD'))) {
+            throw new \Exception('Добавьте токен в файл .env TOKEN_GTD=token');
         }
 
         $this->client  = new Client(
             [
-            'base_uri' => $this->base_uri,
+            'base_uri' => $this->gtd_uri,
             'headers'  => [
                 'Accept'        => 'application/json',
-                'Authorization' => 'Bearer ' . getenv('TOKEN_KIT'),
+                'Authorization' => 'Bearer ' . getenv('TOKEN_GTD'),
             ],
         ]);
     }
@@ -76,145 +76,157 @@ class KitService
     }
 
     /**
-     *  функция /2.0/tdd/city/get-list
+     *  функция /1.0/order/create
      *
      * @param array $params
      * @return FunctionInterface
      */
-    public function cityTdd(array $params = array())
+    public function create(array $params = array(), bool $volume = true)
     {
-        return $this->post(new \Wstanley\Kitapi\Tdd\City($params));
+        return $this->json(new \Wstanley\Gtdapi\Order\Create($params, $volume));
     }
 
-    /**
-     *  функция /2.0/tdd/country/get-list
-     *
-     * @param array $params
-     * @return FunctionInterface
-     */
-    public function country(array $params = array())
-    {
-        return $this->post(new \Wstanley\Kitapi\Tdd\Country($params));
-    }
 
     /**
-     *  функция /2.0/tdd/region/get-list
-     *
-     * @param array $params
-     * @return FunctionInterface
-     */
-    public function Region(array $params = array())
-    {
-        return $this->post(new \Wstanley\Kitapi\Tdd\Region($params));
-    }
-
-    /**
-     *  функция /2.0/order/currency/get-list
-     *
-     * @param array $params
-     * @return FunctionInterface
-     */
-    public function currency(array $params = array())
-    {
-        return $this->post(new \Wstanley\Kitapi\Order\Currency($params));
-    }
-
-    /**
-     *  функция /2.0/order/insurance/get-list
-     *
-     * @param array $params
-     * @return FunctionInterface
-     */
-    public function insurance(array $params = array())
-    {
-        return $this->post(new \Wstanley\Kitapi\Order\Insurance($params));
-    }
-
-    /**
-     *  функция /2.0/order/calculate
+     *  функция /1.0/order/calculate
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function calculate(array $params = array(), bool $volume = true)
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Calculate($params, $volume));
+        return $this->json(new \Wstanley\Gtdapi\Order\Calculate($params, $volume));
     }
 
     /**
-     *  функция /2.0/order/service/get-list
+     *  функция /1.0/tdd/city/get-list
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function cityTdd(array $params = array())
+    {
+        return $this->json(new \Wstanley\Gtdapi\Tdd\City($params));
+    }
+
+    /**
+     *  функция /1.0/tdd/country/get-list
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function country(array $params = array())
+    {
+        return $this->json(new \Wstanley\Gtdapi\Tdd\Country($params));
+    }
+
+    /**
+     *  функция /1.0/tdd/region/get-list
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function Region(array $params = array())
+    {
+        return $this->json(new \Wstanley\Gtdapi\Tdd\Region($params));
+    }
+
+    /**
+     *  функция /1.0/order/currency/get-list
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function currency(array $params = array())
+    {
+        return $this->json(new \Wstanley\Gtdapi\Order\Currency($params));
+    }
+
+    /**
+     *  функция /1.0/order/insurance/get-list
+     *
+     * @param array $params
+     * @return FunctionInterface
+     */
+    public function insurance(array $params = array())
+    {
+        return $this->json(new \Wstanley\Gtdapi\Order\Insurance($params));
+    }
+
+    /**
+     *  функция /1.0/order/service/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function service(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Service($params));
+        return $this->json(new \Wstanley\Gtdapi\Order\Service($params));
     }
 
     /**
-     *  функция /2.0/order/status/get
+     *  функция /1.0/order/status/get
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function status(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Order\Status($params));
+        return $this->json(new \Wstanley\Gtdapi\Order\Status($params));
     }
 
     /**
-     *  функция /2.0/geography/city/get-list
+     *  функция /1.0/geography/city/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function cityGeography(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\City($params));
+        return $this->json(new \Wstanley\Gtdapi\Geography\City($params));
     }
 
     /**
-     *  функция /2.0/geography/email/get-list
+     *  функция /1.0/geography/email/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function email(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Email($params));
+        return $this->json(new \Wstanley\Gtdapi\Geography\Email($params));
     }
 
     /**
-     *  функция /2.0/geography/phone/get-list
+     *  функция /1.0/geography/phone/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function phone(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Phone($params));
+        return $this->json(new \Wstanley\Gtdapi\Geography\Phone($params));
     }
 
     /**
-     *  функция /2.0/geography/schedule/get-list
+     *  функция /1.0/geography/schedule/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function schedule(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\Schedule($params));
+        return $this->json(new \Wstanley\Gtdapi\Geography\Schedule($params));
     }
 
     /**
-     *  функция /2.0/geography/schedule-group/get-list
+     *  функция /1.0/geography/schedule-group/get-list
      *
      * @param array $params
      * @return FunctionInterface
      */
     public function scheduleGroup(array $params = array())
     {
-        return $this->post(new \Wstanley\Kitapi\Geography\ScheduleGroup($params));
+        return $this->json(new \Wstanley\Gtdapi\Geography\ScheduleGroup($params));
     }
 }

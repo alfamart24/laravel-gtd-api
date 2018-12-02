@@ -1,10 +1,12 @@
 <?php
 
-namespace Wstanley\Kitapi\Order;
+namespace Wstanley\Gtdapi\Order;
 
-use Wstanley\Kitapi\FunctionClass;
-use Wstanley\Kitapi\Helpers\ArrayHelp;
-use Wstanley\Kitapi\Helpers\Validation;
+use Wstanley\Gtdapi\Command\Places\Size;
+use Wstanley\Gtdapi\Command\Places\Volume;
+use Wstanley\Gtdapi\FunctionClass;
+use Wstanley\Gtdapi\Helpers\ArrayHelp;
+use Wstanley\Gtdapi\Helpers\Validation;
 
 class Calculate extends FunctionClass
 {
@@ -39,24 +41,6 @@ class Calculate extends FunctionClass
         'all_places_same'       => 'Все места одинаковы по размеру'
     ];
 
-    private $placesSize = [
-
-        'count_place'           => 'Количество мест в позиции',
-        'weight'                => 'Масса КГ позиции',
-
-        'height'                => 'Высота груза (см) позиции',
-        'width'                 => 'Ширина груза (см) позиции',
-        'length'                => 'Длина груза (см) позиции',
-    ];
-
-    private $placesVolume = [
-
-        'count_place'           => 'Количество мест в позиции',
-        'weight'                => 'Масса КГ позиции',
-
-        'volume'                => 'Объем М³ позиции',
-    ];
-
     //  обязательные поля по условию
     private $dependent = [
 
@@ -82,7 +66,21 @@ class Calculate extends FunctionClass
         ]
     ];
 
+    private $standart;
+    private $economy;
+    private $express;
+    private $standard_courier;
+    private $express_courier;
+    public $error;
+
     /**
+     *  Вся логика валидации находится здесь
+     *
+     *  Функция отправляет данные либо с посчитанным объемом либо с размерами
+     *  подробнее смотри в документации к апи
+     *  $volume = true - поумолчанию функция ожидает объем
+     *  для отправки данных с размерами требуется передать $volume = false
+     *
      * Calculate constructor.
      * @param array $params
      * @param bool $volume
@@ -94,12 +92,43 @@ class Calculate extends FunctionClass
         Validation::checkDependent($this->params, $this->dependent);
 
         if ($volume) {
-            Validation::checkNecessary($this->params, $this->placesVolume);
+            Validation::checkNecessary($this->params, Volume::necessary());
         } else {
-            Validation::checkNecessary($this->params, $this->placesSize);
+            Validation::checkNecessary($this->params, Size::necessary());
         }
 
+        //  если выбраны "дополнительные услуги" приводим их к нужному виду
+        if (isset($this->params['service'])) {
+            $this->params = ArrayHelp::getService($this->params);
+        }
+
+        //  приводим "места" в нужный вид перед отправкой
         $this->params = ArrayHelp::getPlaces($this->params, $volume);
+    }
+
+    public function calculateResult()
+    {
+        if (!is_array($this->response)) {
+            $this->error = 'Ошибка расчета';
+            return $this;
+        }
+        array_filter($this->response, function ($value, $key) {
+            foreach (get_class_vars(get_class($this)) as $key => $valueClass) {
+                if ($key == key($value)) {$this->$key = $value->$key;}}
+        }, ARRAY_FILTER_USE_BOTH);
+
+        return $this;
+    }
+
+    public function dispatch_address($name)
+    {
+        return isset($this->$name->dispatch_address[0]) ? $this->$name->dispatch_address[0] : false;
+    }
+
+    public function cost($name)
+    {
+        return isset( $this->$name()->cost)
+            ? $this->$name()->cost : sprintf('Цены в методе %s нет', $name);
     }
 
     /**
@@ -107,7 +136,7 @@ class Calculate extends FunctionClass
      */
     public function standart()
     {
-        return ArrayHelp::calculateResult($this->response, 'standart');
+        return isset($this->standart) ? $this->standart : false;
     }
 
     /**
@@ -115,7 +144,7 @@ class Calculate extends FunctionClass
      */
     public function economy()
     {
-        return ArrayHelp::calculateResult($this->response, 'economy');
+        return isset($this->economy) ? $this->economy : false;
     }
 
     /**
@@ -123,7 +152,7 @@ class Calculate extends FunctionClass
      */
     public function express()
     {
-        return ArrayHelp::calculateResult($this->response, 'express');
+        return isset($this->express) ? $this->express : false;
     }
 
     /**
@@ -131,7 +160,7 @@ class Calculate extends FunctionClass
      */
     public function standard_courier()
     {
-        return ArrayHelp::calculateResult($this->response, 'standard_courier');
+        return isset($this->standard_courier) ? $this->standard_courier : false;
     }
 
     /**
@@ -139,6 +168,6 @@ class Calculate extends FunctionClass
      */
     public function express_courier()
     {
-        return ArrayHelp::calculateResult($this->response, 'express_courier');
+        return isset($this->express_courier) ? $this->express_courier : false;
     }
 }

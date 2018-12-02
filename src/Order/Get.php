@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Kitapi\Order;
+namespace Wstanley\Gtdapi\Order;
 
 
 class Get

@@ -1,14 +1,14 @@
 <?php
 
-namespace Wstanley\Kitapi;
+namespace Wstanley\Gtdapi;
 
 use Illuminate\Support\Facades\Facade;
 
-class Kit extends Facade
+class Gtd extends Facade
 {
     protected static function getFacadeAccessor()
     {
         parent::getFacadeAccessor();
-        return 'kitapi';
+        return 'gtdapi';
     }
 }
