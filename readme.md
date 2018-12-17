@@ -10,7 +10,7 @@ Api для работы с ТК GTD. <br>
 
 # Installation
 ```
-composer require alfamart24/gtdapi:dev-master
+composer require wstanley/gtdapi:dev-master
 ```
 
 <br>
