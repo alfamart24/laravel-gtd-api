@@ -10,7 +10,7 @@ Api для работы с ТК GTD. <br>
 
 # Installation
 ```
-composer require wstanley/gtdapi:dev-master
+composer require alfamart24/laravel-gtd-api:dev-master
 ```
 
 <br>
