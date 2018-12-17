@@ -23,7 +23,7 @@ class GtdService
 
         $this->client  = new Client(
             [
-            'base_uri' => $this->kit_uri,
+            'base_uri' => $this->gtd_uri,
             'headers'  => [
                 'Accept'        => 'application/json',
                 'Authorization' => 'Bearer ' . getenv('TOKEN_GTD'),
