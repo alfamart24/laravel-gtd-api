@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Gtdapi\Helpers;
+namespace Alfamart24\Gtdapi\Helpers;
 
-use Wstanley\Gtdapi\GtdService;
+use Alfamart24\Gtdapi\GtdService;
 
 class Validation
 {

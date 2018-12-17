@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Gtdapi\Tdd;
+namespace Alfamart24\Gtdapi\Tdd;
 
-use Wstanley\Gtdapi\FunctionClass;
+use Alfamart24\Gtdapi\FunctionClass;
 
 class Country extends FunctionClass
 {

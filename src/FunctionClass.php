@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Gtdapi;
+namespace Alfamart24\Gtdapi;
 
-use Wstanley\Gtdapi\Helpers\Validation;
+use Alfamart24\Gtdapi\Helpers\Validation;
 
 abstract class FunctionClass implements FunctionInterface
 {

@@ -10,7 +10,7 @@ Api для работы с ТК GTD. <br>
 
 # Installation
 ```
-composer require wstanley/gtdapi:dev-master
+composer require alfamart24/gtdapi:dev-master
 ```
 
 <br>
@@ -25,7 +25,7 @@ TOKEN_GTD=
 Подключаем сервис в контроллере:
 
 ```
-use Wstanley\Gtdapi\GtdService;
+use Alfamart24\Gtdapi\GtdService;
 
 $service = new GtdService();
 ```

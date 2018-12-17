@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Helpers;
+namespace Alfamart24\Gtdapi\Helpers;
 
 class ArrayHelp
 {

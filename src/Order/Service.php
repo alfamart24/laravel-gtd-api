@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Gtdapi\Order;
+namespace Alfamart24\Gtdapi\Order;
 
-use Wstanley\Gtdapi\FunctionClass;
+use Alfamart24\Gtdapi\FunctionClass;
 
 class Service extends FunctionClass
 {

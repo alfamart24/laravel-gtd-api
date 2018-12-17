@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi;
+namespace Alfamart24\Gtdapi;
 
 use Illuminate\Support\Facades\Facade;
 

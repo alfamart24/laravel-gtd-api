@@ -13,16 +13,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Wstanley\\Gtdapi\\": "src/"
+            "Alfamart24\\Gtdapi\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Wstanley\\Gtdapi\\GtdServiceProvider"
+                "Alfamart24\\Gtdapi\\GtdServiceProvider"
             ],
             "aliases": {
-                "Gtdapi": "Wstanley\\Gtdapi\\Gtd"
+                "Gtdapi": "Alfamart24\\Gtdapi\\Gtd"
             }
         }
     }

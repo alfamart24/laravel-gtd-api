@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Geography;
+namespace Alfamart24\Gtdapi\Geography;
 
 class Address
 {

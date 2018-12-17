@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Order;
+namespace Alfamart24\Gtdapi\Order;
 
 
 class Get

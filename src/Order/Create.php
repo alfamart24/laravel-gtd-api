@@ -1,17 +1,17 @@
 <?php
 
-namespace Wstanley\Gtdapi\Order;
+namespace Alfamart24\Gtdapi\Order;
 
-use Wstanley\Gtdapi\Command\Debitor\Individual;
-use Wstanley\Gtdapi\Command\Debitor\Legal;
-use Wstanley\Gtdapi\Command\Debitor\Physical;
-use Wstanley\Gtdapi\Command\Deliver;
-use Wstanley\Gtdapi\Command\Pickup;
-use Wstanley\Gtdapi\Command\Places\Volume;
-use Wstanley\Gtdapi\Command\Places\Size;
-use Wstanley\Gtdapi\Helpers\Validation;
-use Wstanley\Gtdapi\Helpers\ArrayHelp;
-use Wstanley\Gtdapi\FunctionClass;
+use Alfamart24\Gtdapi\Command\Debitor\Individual;
+use Alfamart24\Gtdapi\Command\Debitor\Legal;
+use Alfamart24\Gtdapi\Command\Debitor\Physical;
+use Alfamart24\Gtdapi\Command\Deliver;
+use Alfamart24\Gtdapi\Command\Pickup;
+use Alfamart24\Gtdapi\Command\Places\Volume;
+use Alfamart24\Gtdapi\Command\Places\Size;
+use Alfamart24\Gtdapi\Helpers\Validation;
+use Alfamart24\Gtdapi\Helpers\ArrayHelp;
+use Alfamart24\Gtdapi\FunctionClass;
 
 class Create extends FunctionClass
 {

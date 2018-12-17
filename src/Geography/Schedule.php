@@ -1,8 +1,8 @@
 <?php
 
-namespace Wstanley\Gtdapi\Geography;
+namespace Alfamart24\Gtdapi\Geography;
 
-use Wstanley\Gtdapi\FunctionClass;
+use Alfamart24\Gtdapi\FunctionClass;
 
 class Schedule extends FunctionClass
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Wstanley\Gtdapi;
+namespace Alfamart24\Gtdapi;
 
 use GuzzleHttp\Client;
-use Wstanley\Gtdapi\Helpers\StringHelp;
+use Alfamart24\Gtdapi\Helpers\StringHelp;
 
 class GtdService
 {
@@ -23,7 +23,7 @@ class GtdService
 
         $this->client  = new Client(
             [
-            'base_uri' => $this->gtd_uri,
+            'base_uri' => $this->kit_uri,
             'headers'  => [
                 'Accept'        => 'application/json',
                 'Authorization' => 'Bearer ' . getenv('TOKEN_GTD'),
@@ -80,10 +80,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function create(array $params = array(), bool $volume = true)
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Create($params, $volume));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Create($params, $volume));
     }
 
 
@@ -92,10 +93,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function calculate(array $params = array(), bool $volume = true)
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Calculate($params, $volume));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Calculate($params, $volume));
     }
 
     /**
@@ -103,10 +105,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function cityTdd(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Tdd\City($params));
+        return $this->json(new \Alfamart24\Gtdapi\Tdd\City($params));
     }
 
     /**
@@ -114,10 +117,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function country(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Tdd\Country($params));
+        return $this->json(new \Alfamart24\Gtdapi\Tdd\Country($params));
     }
 
     /**
@@ -125,10 +129,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function Region(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Tdd\Region($params));
+        return $this->json(new \Alfamart24\Gtdapi\Tdd\Region($params));
     }
 
     /**
@@ -136,10 +141,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function currency(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Currency($params));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Currency($params));
     }
 
     /**
@@ -147,10 +153,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function insurance(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Insurance($params));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Insurance($params));
     }
 
     /**
@@ -158,10 +165,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function service(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Service($params));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Service($params));
     }
 
     /**
@@ -169,10 +177,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function status(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Order\Status($params));
+        return $this->json(new \Alfamart24\Gtdapi\Order\Status($params));
     }
 
     /**
@@ -180,10 +189,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function cityGeography(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Geography\City($params));
+        return $this->json(new \Alfamart24\Gtdapi\Geography\City($params));
     }
 
     /**
@@ -191,10 +201,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function email(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Geography\Email($params));
+        return $this->json(new \Alfamart24\Gtdapi\Geography\Email($params));
     }
 
     /**
@@ -202,10 +213,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function phone(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Geography\Phone($params));
+        return $this->json(new \Alfamart24\Gtdapi\Geography\Phone($params));
     }
 
     /**
@@ -213,10 +225,11 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function schedule(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Geography\Schedule($params));
+        return $this->json(new \Alfamart24\Gtdapi\Geography\Schedule($params));
     }
 
     /**
@@ -224,9 +237,10 @@ class GtdService
      *
      * @param array $params
      * @return FunctionInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function scheduleGroup(array $params = array())
     {
-        return $this->json(new \Wstanley\Gtdapi\Geography\ScheduleGroup($params));
+        return $this->json(new \Alfamart24\Gtdapi\Geography\ScheduleGroup($params));
     }
 }

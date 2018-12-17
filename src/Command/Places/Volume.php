@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Command\Places;
+namespace Alfamart24\Gtdapi\Command\Places;
 
 class Volume
 {

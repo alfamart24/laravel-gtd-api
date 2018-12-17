@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Command;
+namespace Alfamart24\Gtdapi\Command;
 
 class Deliver
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wstanley\Gtdapi\Command\Debitor;
+namespace Alfamart24\Gtdapi\Command\Debitor;
 
 /*
  *  Индивидуальный предприниматель
